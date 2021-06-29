@@ -1,21 +1,28 @@
 import { React, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
     CreationBox, Content, Field, P,
 } from './Style';
 import PageHeader from '../../Components/PageHeader';
+import { addNewKanji } from '../../Services/Axios/kanjiServices';
 
 const AddKanjiPage = () => {
+    const history = useHistory();
     const [kanji, setKanji] = useState('');
     const [onyomiReading, setOnyomiReading] = useState('');
     const [kunyomiReading, setKunyomiReading] = useState('');
     const [kanjiMeaning, setKanjiMeaning] = useState('');
 
-    const cadastrarKanji = () => {
-        if (kanji === '' || onyomiReading === '' || kunyomiReading === '' || kanjiMeaning === '') {
+    const cadastrarKanji = async () => {
+        if (kanji === '' || kanjiMeaning === '') {
             alert('Campo vazio.');
         } else {
-            console.log('ok');
             // cadastro
+            await addNewKanji(kanji, onyomiReading.toLowerCase(), kunyomiReading.toLowerCase(), kanjiMeaning.toLowerCase());
+            setKanji('');
+            setOnyomiReading('');
+            setKunyomiReading('');
+            setKanjiMeaning('');
         }
     };
 
@@ -27,19 +34,19 @@ const AddKanjiPage = () => {
                     <h1>Kanji a ser adicionado:</h1>
                     <Field>
                         <P>Figura: </P>
-                        <input onChange={(e) => setKanji(e.target.value)} />
+                        <input value={kanji} onChange={(e) => setKanji(e.target.value)} />
                     </Field>
                     <Field>
                         <P>Leitura Onyomi: </P>
-                        <input onChange={(e) => setOnyomiReading(e.target.value)} />
+                        <input value={onyomiReading} onChange={(e) => setOnyomiReading(e.target.value)} />
                     </Field>
                     <Field>
                         <P>Leitura Kunyomi: </P>
-                        <input onChange={(e) => setKunyomiReading(e.target.value)} />
+                        <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)} />
                     </Field>
                     <Field>
                         <P>Significados: </P>
-                        <input onChange={(e) => setKanjiMeaning(e.target.value)} />
+                        <input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)} />
                     </Field>
                     
                     <button onClick={cadastrarKanji} >Cadastrar</button>

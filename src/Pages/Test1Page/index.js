@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
+import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
     Test, KanjiDiv, Answer, Field,
 } from './Style';
@@ -8,34 +9,51 @@ import {
 } from '../AddKanjiPage/Style';
 
 const Test1Page = () => {
-    // Resposta do usuario
-    const [onyomiReadingAnswer, setOnyomiReadingAnswer] = useState('');
-    const [kunyomiReadingAnswer, setKunyomiReadingAnswer] = useState('');
-    const [kanjiMeaningAnswer, setKanjiMeaningAnswer] = useState('');
+    const [kanji, setKanji] = useState(''); // Kanji da questao
+    const [kanjis, setKanjis] = useState([]); // Lista de kanjis
     // Resposta
-    const [kanji, setKanji] = useState('称');
-    const [onyomiReading, setOnyomiReading] = useState('');
-    const [kunyomiReading, setKunyomiReading] = useState('');
-    const [kanjiMeaning, setKanjiMeaning] = useState('');
+    const [onyomiReadingAnswer, setOnyomiReadingAnswer] = useState([]); // Leitura onyomi       - Resposta
+    const [kunyomiReadingAnswer, setKunyomiReadingAnswer] = useState([]); // Leitura kunyomi    - Resposta
+    const [kanjiMeaningAnswer, setKanjiMeaningAnswer] = useState([]); // Significado do kanji   - Resposta
+    // Resposta do usuario
+    const [onyomiReading, setOnyomiReading] = useState(''); // Leitura onyomi                   - Usuario
+    const [kunyomiReading, setKunyomiReading] = useState(''); // Leitura kunyomi                - Usuario
+    const [kanjiMeaning, setKanjiMeaning] = useState(''); // Significado do kanji               - Usuario
 
-    const verificarResposta = () => {
+    const getKanjisListFromAPI = async () => {
+        await getKanjisList()
+        .then((response) => setKanjis(response.data));
+    }
+
+    const verificarResposta = async () => {
         // resposta correta
-        if (onyomiReadingAnswer === onyomiReading && kunyomiReadingAnswer === kunyomiReading && kanjiMeaningAnswer === kanjiMeaning) {
+        if (onyomiReadingAnswer.includes(onyomiReading.toLowerCase()) && kunyomiReadingAnswer.includes(kunyomiReading.toLowerCase()) && kanjiMeaningAnswer.includes(kanjiMeaning.toLowerCase())) {
+            kanjis[kanjis.length - 1] = kanjis.shift();
             alert("Resposta correta!");
         } else {
             alert("Resposta errada :(");
+            kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
         }
+        setOnyomiReading('');
+        setKunyomiReading('');
+        setKanjiMeaning('');
         gerarPergunta();
     };
-
+    
     const gerarPergunta = () => {
-        // requisicao
-        // armazena nos set's
+        setKanji(kanjis[0]?.kanji);
+        setOnyomiReadingAnswer(kanjis[0]?.onyomiReading);
+        setKunyomiReadingAnswer(kanjis[0]?.kunyomiReading);
+        setKanjiMeaningAnswer(kanjis[0]?.meaning);
     }
+    
+    useEffect(() => {
+        getKanjisListFromAPI();
+    }, []);
 
     useEffect(() => {
         gerarPergunta();
-    }, []);
+    }, [kanjis]);
 
     return (
         <>
@@ -47,15 +65,15 @@ const Test1Page = () => {
                 <Answer>
                     <Field>
                         <P>Leitura Onyomi: </P>
-                        <input onChange={(e => setOnyomiReadingAnswer(e.target.value))} />
+                        <input value={onyomiReading} onChange={(e => setOnyomiReading(e.target.value))} />
                     </Field>
                     <Field>
                         <P>Leitura Kunyomi: </P>
-                        <input onChange={(e) => setKunyomiReadingAnswer(e.target.value)} />
+                        <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)} />
                     </Field>
                     <Field>
                         <P>Significado: </P>
-                        <input onChange={(e) => setKanjiMeaningAnswer(e.target.value)} />
+                        <input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)} />
                     </Field>
                 </Answer>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
