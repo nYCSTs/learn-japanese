@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import {
     CreationBox, Content, Field, P,
 } from './Style';
@@ -7,7 +6,6 @@ import PageHeader from '../../Components/PageHeader';
 import { addNewKanji } from '../../Services/Axios/kanjiServices';
 
 const AddKanjiPage = () => {
-    const history = useHistory();
     const [kanji, setKanji] = useState('');
     const [onyomiReading, setOnyomiReading] = useState('');
     const [kunyomiReading, setKunyomiReading] = useState('');

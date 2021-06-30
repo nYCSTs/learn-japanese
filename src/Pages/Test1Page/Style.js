@@ -10,7 +10,7 @@ export const Test = styled.div`
 export const KanjiDiv = styled.div`
     display: flex;
     justify-content: center;
-    font-size: 60px;
+    font-size: ${(props) => `${props.fontsize}px`};
 `;
 
 export const Answer = styled.div`
