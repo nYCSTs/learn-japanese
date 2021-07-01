@@ -2,13 +2,18 @@ import styled from 'styled-components';
 
 export const TrainingBox = styled.div`
     width: 25%;
-    height: 240px;
     border-radius: 18px;
     border: 1px solid black;
-`;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    margin: 12px 0;
 
-export const BoxContent = styled.div`
-    padding: 5%;
+    @media(max-width: 750px) {
+        width: 80%;
+        text-align: center;
+        margin: 12px auto;
+    }  
 `;
 
 export const Name = styled.div`
@@ -25,6 +30,12 @@ export const Description = styled.div`
 `;
 
 export const Button = styled.button`
+    background-color: black;
+    color: white;
+    border-radius: 12px;
+    outline: none;
+    border: none;
+    width: 82px;
 `;
 
 export const ButtonDiv = styled.div`

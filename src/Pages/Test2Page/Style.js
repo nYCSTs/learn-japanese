@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
 export const Test = styled.div`
-    margin: 120px auto;
-    width: 90%;
+    margin: 28px auto;
     border: 2px solid black;
     border-radius: 12px;
+    padding: 18px;
 `;
 
 export const Question = styled.p`
     text-align: center;
-    font-size: 58px;
+    font-size: 42px;
+    margin: 0 0 24px 0;
 `;
 
 export const Button = styled.button`
@@ -27,7 +28,11 @@ export const Button = styled.button`
 export const Cards = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 62px;
+
+    @media(max-width: 750px) {
+        flex-direction: column;
+        text-align: center;
+    }
 
 `;
 
@@ -35,20 +40,27 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #04AA6D;
-    width: 20%;
-    height: 360px;
+    width: 120px;
+    height: 320px;
     border: 1px solid black;
     border-radius: 18px;
+    padding: 2%;
+
+    @media(max-width: 750px) {
+        width: 90%;
+        height: min-content;
+        margin: 12px auto;
+    }
 `;
 
 export const Kanji = styled.h1`
     text-align: center;
     font-size: 42px;
     font-weight: normal;
+    margin: 0;
 `;
 
-export const OnKun = styled.p`
-margin-left: 12px;
+export const OnKun = styled.div`
 font-size: 18px;
 `;
 

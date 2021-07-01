@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Test, KanjiDiv, Answer, Field,
+    Test, Question, Answer, Field, Submit, Input, Button,
 } from './Style';
 import {
     P, 
@@ -59,26 +59,26 @@ const Test1Page = () => {
         <>
             <PageHeader />
             <Test>
-                <KanjiDiv>
+                <Question>
                     {kanji}
-                </KanjiDiv>
+                </Question>
                 <Answer>
                     <Field>
                         <P>Leitura Onyomi: </P>
-                        <input value={onyomiReading} onChange={(e => setOnyomiReading(e.target.value))} />
+                        <Input value={onyomiReading} onChange={(e => setOnyomiReading(e.target.value))} />
                     </Field>
                     <Field>
                         <P>Leitura Kunyomi: </P>
-                        <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)} />
+                        <Input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)} />
                     </Field>
                     <Field>
                         <P>Significado: </P>
-                        <input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)} />
+                        <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)} />
                     </Field>
                 </Answer>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <button onClick={verificarResposta}>Confirmar</button>
-                </div>
+                <Submit>
+                    <Button onClick={verificarResposta}>Responder</Button>
+                </Submit>
             </Test>
         </>
     )

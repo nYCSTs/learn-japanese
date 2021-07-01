@@ -2,7 +2,7 @@ import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Test, KanjiDiv, Field, Answer,
+    Test, Question, Field, Answer, Submit, Button,
 } from '../Test1Page/Style';
 import {
     P, 
@@ -77,9 +77,9 @@ const Test2Page = () => {
         <>
             <PageHeader />
             <Test>
-                <KanjiDiv fontsize={"32"}>
+                <Question>
                     {question}
-                </KanjiDiv>
+                </Question>
                 <Answer>
                     <Field>
                         <P>Kanji: </P>
@@ -94,9 +94,9 @@ const Test2Page = () => {
                         <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)}/>
                     </Field>
                 </Answer>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <button onClick={verificarResposta}>Confirmar</button>
-                </div>
+                <Submit>
+                    <Button onClick={verificarResposta}>Responder</Button>
+                </Submit>
             </Test>
         </>
     );

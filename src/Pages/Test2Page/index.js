@@ -40,8 +40,14 @@ const Test2Page = () => {
                         return (
                             <Card onClick={() => verificarResposta(data.meaning.join(', '))}>
                                 <Kanji>{data.kanji}</Kanji>
-                                <OnKun>Onyomi: {data.onyomiReading.join(', ')}</OnKun>
-                                <OnKun>Kunyomi: {data.kunyomiReading.join(', ')}</OnKun>
+                                <OnKun>
+                                    <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Onyomi:</p>
+                                    <p>{data.onyomiReading.join(', ')}</p>
+                                </OnKun>
+                                <OnKun>
+                                    <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Kunyomi:</p>
+                                    <p>{data.kunyomiReading.join(', ')}</p>
+                                </OnKun>
                             </Card>
                         )
                     })}
