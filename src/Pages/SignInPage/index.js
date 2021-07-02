@@ -1,21 +1,37 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import {
-    SignInBox, LoginText, UserData
+    SignInBox, LoginText, UserData, Bottom, P
 } from './Style';
+import { useProfileUser } from '../../Context/index';
+import { useHistory } from 'react-router-dom';
 
 const SigninPage = () => {
+    const history = useHistory();
+    const { handleLogin } = useProfileUser();
+    const [username, setUsername] = useState('');
+    const [pass, setPass] = useState('');
+
+    const realizarLogin = async () => {
+        if (await handleLogin(username, pass)) {
+            return history.push('/');
+        }
+    }
+
     return (
         <SignInBox>
             <LoginText>
                 Realizar login
             </LoginText>
             <UserData>
-                <p>Email: </p>
-                <input type="email"></input>
+                <p>Usuario: </p>
+                <input style={{ width: '100% '}} value={username} onChange={(e) => setUsername(e.target.value)}></input>
                 <p>Senha: </p>
-                <input type="password"></input>
+                <input style={{ width: '100% '}} value={pass} onChange={(e) => setPass(e.target.value)}type="password"></input>
             </UserData>
-            <button>Entrar</button>
+            <Bottom>
+                <button onClick={() => realizarLogin() }>Entrar</button>
+                <a href="/register">cadastrar-se</a>
+            </Bottom>
         </SignInBox>
     );
 };
