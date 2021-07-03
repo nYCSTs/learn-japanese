@@ -10,6 +10,21 @@ const shuffleKanjiList = (array) => {
     return array;
 }
 
+const generateTestResults = (user, answer) => {
+    const wrong = [];
+    const correct = [];
+
+    answer.map((val) => {
+        if (user.includes(val)) {
+            correct.push(val);
+        } else {
+            wrong.push(val);
+        }
+    });
+
+    return [correct, wrong];
+}
+
 module.exports = {
-    generateListWords, shuffleKanjiList,
+    generateListWords, shuffleKanjiList, generateTestResults,
 };

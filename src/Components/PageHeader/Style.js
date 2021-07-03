@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const Header = styled.header`
+export const Username = styled.p`
+    font-size: 1.5rem;
+    font-weight: bold;
 `;
 
 export const P = styled.p`
     display: inline-block;
     font-weight: bold;
+    width: 120px;
 `;
 
 export const HeaderTop = styled.div`
@@ -14,31 +17,24 @@ export const HeaderTop = styled.div`
 
 export const HeaderBottom = styled.div`
     background-color: #1d439b;
+    height: 36px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
 
-export const Ul = styled.ul`
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+    @media(max-width: 750px) {
+        justify-content: center;
+    }
 `;
 
 export const A = styled.a`
     display: block;
     color: white;
     text-align: center;
-    padding: 12px 8px;
-    font-size: 12px;
+    font-size: 14px;
     text-decoration: none;
-`;
+    align-items: center;
+    padding: 4px 12px;
 
-export const Li = styled.li`
-    float: left;
-
-    &:hover ${A} {
+    &:hover {
         background-color: #e1e7f5;
         color: black;
     }
@@ -47,7 +43,7 @@ export const Li = styled.li`
 export const Content = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 0 16px;
+    margin: 0 12px;
 `;
 
 export const Sign = styled.div`
@@ -69,5 +65,16 @@ export const Button = styled.button`
     &:hover {
         color: black;
         background-color: white;
+    }
+`;
+
+export const List = styled.div`
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    align-items: center;
+
+    @media (max-width: 750px) {
+        justify-content: space-evenly;
     }
 `;

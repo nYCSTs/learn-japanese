@@ -73,14 +73,12 @@ const AddKanjiPage = () => {
     };
 
     const registrarKanji = async () => {
-        if (await addNewKanji(kanji, kanjiMeaning.split(',').map((word) => word.trim()), listaRadicais, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
+        if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), listaRadicais, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
             setKanji('');
             setKanjiMeaning('');
             setRadicalsInputs([]);
             setKunyomiInputs([]);
             setListaOnyomi('');
-            gerarInputs('radical');
-            gerarInputs('kunyomi');
         }
     };
 

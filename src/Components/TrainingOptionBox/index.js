@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-    TrainingBox, Name, Description, Button, ButtonDiv,
+    TrainingCard, Name, Description, Button, ButtonDiv, Content,
 } from './Style';
 
 const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
@@ -12,17 +12,19 @@ const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
     };
     
     return (
-        <TrainingBox>
-            <Name>
-                {testName}
-            </Name>
-            <Description>
-                {testDescription}
-            </Description>
+        <TrainingCard>
+            <Content>
+                <Name>
+                    {testName}
+                </Name>
+                <Description>
+                    {testDescription}
+                </Description>
+            </Content>
             <ButtonDiv>
                 <Button onClick={teste}>Iniciar</Button>
             </ButtonDiv>
-        </TrainingBox>
+        </TrainingCard>
     );
 };
 

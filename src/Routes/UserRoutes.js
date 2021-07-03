@@ -10,6 +10,7 @@ import AddKanjiPage from '../Pages/AddKanjiPage';
 import SignInPage from '../Pages/SignInPage';
 import SignUpPage from '../Pages/SignUpPage';
 import { useProfileUser } from '../Context/index'; 
+import Test4Page from '../Pages/Test4Page';
 
 const OtherRoutes = () => {
     const { user } = useProfileUser();
@@ -27,6 +28,8 @@ const OtherRoutes = () => {
                         <Route path="/teste/1" exact component={Test1Page} />
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
+                        <Route path="/teste/4" exact component={Test4Page} />
+                        
                         <Route path="/add-kanji" exact component={AddKanjiPage} />
                     </Switch>
                 ) : (
@@ -35,6 +38,7 @@ const OtherRoutes = () => {
                         <Route path="/teste/1" exact component={Test1Page} />
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
+                        <Route path="/teste/4" exact component={Test4Page} />
                     </Switch>
                 )
             }

@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
+import { generateTestResults } from '../../Utilities/usefulFunctions';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
     Test, Question, Answer, Field, Submit, Input, Button, P
@@ -23,14 +24,22 @@ const Test1Page = () => {
     }
 
     const verificarResposta = async () => {
-        // resposta correta
-        if (onyomiReadingAnswer.includes(onyomiReading.toLowerCase()) && kunyomiReadingAnswer.includes(kunyomiReading.toLowerCase()) && kanjiMeaningAnswer.includes(kanjiMeaning.toLowerCase())) {
-            kanjis[kanjis.length - 1] = kanjis.shift();
-            alert("Resposta correta!");
+        const [onyomiCorrect, onyomiWrong] = generateTestResults(onyomiReading, onyomiReadingAnswer);
+        const [kunyomiCorrect, kunyomiWrong] = generateTestResults(kunyomiReading, kunyomiReadingAnswer);
+
+        if (!onyomiWrong.length && !kunyomiWrong.length && kanjiMeaningAnswer.includes(kanjiMeaning)) {
+            kanjis.push(kanjis.shift());
+            alert("Completamente correta!");
         } else {
-            alert("Resposta errada :(");
+            if (onyomiCorrect.length && kunyomiCorrect.length && kanjiMeaningAnswer.includes(kanjiMeaning)) {
+                alert("Correta");
+            } else {
+                alert("Errada");
+            }
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
+            alert(`Leitura onyomi:\n${onyomiReadingAnswer}\n\nLeitura kunyomi:\n${kunyomiReadingAnswer}\n\nSignificado:\n${kanjiMeaningAnswer}`);
         }
+    
         setOnyomiReading('');
         setKunyomiReading('');
         setKanjiMeaning('');
@@ -39,9 +48,9 @@ const Test1Page = () => {
     
     const gerarPergunta = () => {
         setKanji(kanjis[0]?.kanji);
-        setOnyomiReadingAnswer(kanjis[0]?.onyomiReading);
-        setKunyomiReadingAnswer(kanjis[0]?.kunyomiReading);
-        setKanjiMeaningAnswer(kanjis[0]?.meaning);
+        setOnyomiReadingAnswer(kanjis[0]?.onyomi);
+        setKunyomiReadingAnswer(kanjis[0]?.kunyomi.map((v) => v.reading));
+        setKanjiMeaningAnswer(kanjis[0]?.kanjiMeaning);
     }
     
     useEffect(() => {

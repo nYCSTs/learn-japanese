@@ -5,12 +5,22 @@ export const Test = styled.div`
     border: 2px solid black;
     border-radius: 12px;
     padding: 18px;
+    width: min-content;
+
+    @media(max-width: 750px) {
+        width: 80%;
+    }
+
 `;
 
 export const Question = styled.p`
     text-align: center;
     font-size: 42px;
-    margin: 0 0 24px 0;
+    margin: 0 82px 24px 82px;
+
+    @media(max-width: 750px) {
+        margin: 0;
+    }
 `;
 
 export const Button = styled.button`
@@ -40,11 +50,12 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #04AA6D;
-    width: 120px;
+    width: 160px;
     height: 320px;
     border: 1px solid black;
     border-radius: 18px;
     padding: 2%;
+    margin: 36px;
 
     @media(max-width: 750px) {
         width: 90%;

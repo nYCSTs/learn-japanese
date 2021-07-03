@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-    Header, P, HeaderTop, Ul, Li, A, HeaderBottom, Content, Sign, Button,
+    P, HeaderTop, A, HeaderBottom, Content, List, Username,
 } from './Style';
 import { useProfileUser } from '../../Context/index';
 import { APIUsers } from '../../Services/Axios/baseService';
@@ -19,27 +19,23 @@ const PageHeader = () => {
     }
 
     return (
-        <Header>
+        <div style={{ width: '100%' }}>
             <HeaderTop>
                 <Content>
-                    <h2>{user.username}</h2>
+                    <Username>{user.username}</Username>
                     <P>Testes feitos na semana: {user.testesSemanais}</P>
                 </Content>
             </HeaderTop>
             <HeaderBottom>
-                <Ul>
-                    <Li><A href="/">Pagina Inicial</A></Li>
+                <List>
+                    <A href="/">Pagina Inicial</A>
                     { user.role === 'admin' ? (
-                        <Li><A href="/add-kanji">Adicionar novo kanji</A></Li>
+                        <A href="/add-kanji">Kanji</A>
                     ) : null}
-                    <Li><A href="/login" onClick={() => logout()}>Sair</A></Li>
-                </Ul>
-                <Sign>
-                    <Button>Login</Button>
-                    <Button>Register</Button>
-                </Sign>
+                    <A href="/login" onClick={() => logout()}>Sair</A>
+                </List>
             </HeaderBottom>
-        </Header>
+        </div>
     );
 };
 

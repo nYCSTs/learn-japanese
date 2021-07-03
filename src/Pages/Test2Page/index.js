@@ -9,9 +9,9 @@ import {
 } from './Style';
 
 const Test2Page = () => {
+    const [question, setQuestion] = useState();
     const [showButton, setShowButton] = useState(true);
     const [kanjisList, setKanjisList] = useState([]);
-    const [question, setQuestion] = useState('');
 
     const getKanjisListFromAPI = () => {
         getKanjisList()
@@ -29,7 +29,7 @@ const Test2Page = () => {
     const teste = () => {
         if (showButton) {
             return (
-                <div style={{ textAlign: 'center', fontSize: '42px', marginBottom: '62px' }}>
+                <div style={{ textAlign: 'center', fontSize: '42px', marginTop: '64px' }}>
                     <Button onClick={() => setShowButton(!setShowButton)}>Mostrar cartas</Button>
                 </div>
             );
@@ -38,7 +38,7 @@ const Test2Page = () => {
                 <Cards>
                     {kanjisList.slice(0, 5).map((data, idx) => {
                         return (
-                            <Card key={idx} onClick={() => verificarResposta(data.meaning.join(', '))}>
+                            <Card key={idx} onClick={() => verificarResposta(data.kanji)}>
                                 <Kanji>{data.kanji}</Kanji>
                                 <OnKun>
                                     <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Onyomi:</p>
@@ -57,12 +57,11 @@ const Test2Page = () => {
     };
 
     const gerarPergunta = () => {
-        // setQuestion(kanjisList[Math.floor(Math.random(10) * 4)]?.kanjiMeaning.join(', '))
-        setQuestion(kanjisList[0]?.kanjiMeaning.join(', '))
+        setQuestion(kanjisList[Math.floor(Math.random(10) * 4)]); 
     }
 
-    const verificarResposta = (meaning) => {
-        if (question === meaning) {
+    const verificarResposta = (kanji) => {
+        if (question?.kanji === kanji) {
             alert("Correto!");
         } else {
             alert("Errado :(");
@@ -76,7 +75,7 @@ const Test2Page = () => {
         <>
             <PageHeader />
             <Test>
-                <Question>{question}</Question>
+                <Question>{question?.kanjiMeaning.join(', ')}</Question>
                 {teste()}
             </Test>
         </>
