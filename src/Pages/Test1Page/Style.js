@@ -42,3 +42,8 @@ export const Button = styled.button`
     overflow: hidden;
     outline:none;
 `;
+
+export const P = styled.p`
+    display: inline-block;
+    margin-right: 12px;
+`;

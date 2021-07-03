@@ -2,11 +2,8 @@ import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Test, Question, Answer, Field, Submit, Input, Button,
+    Test, Question, Answer, Field, Submit, Input, Button, P
 } from './Style';
-import {
-    P, 
-} from '../AddKanjiPage/Style';
 
 const Test1Page = () => {
     const [kanji, setKanji] = useState(''); // Kanji da questao

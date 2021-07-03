@@ -2,11 +2,8 @@ import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Test, Question, Field, Answer, Submit, Button,
+    Test, Question, Field, Answer, Submit, Button, P
 } from '../Test1Page/Style';
-import {
-    P, 
-} from '../AddKanjiPage/Style';
 
 const Test2Page = () => {
     const [kanjisList, setKanjisList] = useState([]);

@@ -9,19 +9,20 @@ export const getKanjisList = async () => {
     }
 }
 
-export const addNewKanji = async (kanji, onyomiReading, kunyomiReading, meaning) => {
+export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi) => {
     try {
         const response = await APIKanjis.post('/kanji/add', {
             kanji,
-            onyomiReading,
-            kunyomiReading,
-            meaning
+            kanjiMeaning,
+            radicals,
+            onyomi,
+            kunyomi,
         });
         if (response.data.err === 'duplicated') {
             alert('Kanji ja cadastrado');
         }
-        return response;
+        return true;
     } catch (err) {
-        return err;
+        return false;
     }
 }

@@ -36,17 +36,17 @@ const Test2Page = () => {
         } else {
             return (
                 <Cards>
-                    {kanjisList.slice(0, 5).map((data) => {
+                    {kanjisList.slice(0, 5).map((data, idx) => {
                         return (
-                            <Card onClick={() => verificarResposta(data.meaning.join(', '))}>
+                            <Card key={idx} onClick={() => verificarResposta(data.meaning.join(', '))}>
                                 <Kanji>{data.kanji}</Kanji>
                                 <OnKun>
                                     <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Onyomi:</p>
-                                    <p>{data.onyomiReading.join(', ')}</p>
+                                    <p>{data.onyomi.join(', ')}</p>
                                 </OnKun>
                                 <OnKun>
                                     <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Kunyomi:</p>
-                                    <p>{data.kunyomiReading.join(', ')}</p>
+                                    <p>{data.kunyomi[0].meaning.join(', ')}</p>
                                 </OnKun>
                             </Card>
                         )
@@ -57,7 +57,8 @@ const Test2Page = () => {
     };
 
     const gerarPergunta = () => {
-        setQuestion(kanjisList[Math.floor(Math.random(10) * 4)]?.meaning.join(', '))
+        // setQuestion(kanjisList[Math.floor(Math.random(10) * 4)]?.kanjiMeaning.join(', '))
+        setQuestion(kanjisList[0]?.kanjiMeaning.join(', '))
     }
 
     const verificarResposta = (meaning) => {
