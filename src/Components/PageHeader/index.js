@@ -30,7 +30,10 @@ const PageHeader = () => {
                 <List>
                     <A href="/">Pagina Inicial</A>
                     { user.role === 'admin' ? (
-                        <A href="/add-kanji">Kanji</A>
+                        <>
+                            <A href="/add-kanji">Cadastrar Kanji</A>
+                            <A href="/add-radical">Cadastrar Radical</A>
+                        </>
                     ) : null}
                     <A href="/login" onClick={() => logout()}>Sair</A>
                 </List>

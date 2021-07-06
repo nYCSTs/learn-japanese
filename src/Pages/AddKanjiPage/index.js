@@ -1,10 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import { 
     CreationBox, Title, Input, KanjiField, AddButton, 
-    RemoveButton, Divisao, Buttons, Field
+    RemoveButton, Divisao, Buttons, Field, Hr
 } from './Style';
 import PageHeader from '../../Components/PageHeader';
-import { addNewKanji } from '../../Services/Axios/kanjiServices';
+import { addNewKanji, getRadicalsList } from '../../Services/Axios/kanjiServices';
+import Multiselect from 'multiselect-react-dropdown';
 
 
 const AddKanjiPage = () => {
@@ -12,79 +13,57 @@ const AddKanjiPage = () => {
     const [kanji, setKanji] = useState('');
     const [kanjiMeaning, setKanjiMeaning] = useState('');
     // radicais
-    const [radicalsInputs, setRadicalsInputs] = useState([]);
-    const [listaRadicais, setListaRadicais] = useState([]);
+    const [radicals, setRadicals] = useState([]);
+    const [selectedRadicals, setSelectedRadicals] = useState([]);
     // onyomi
     const [listaOnyomi, setListaOnyomi] = useState('');
     //kunyomi
     const [kunyomiInputs, setKunyomiInputs] = useState([]);
     const [listaKunyomi, setListaKunyomi] = useState([]);
     
-    const gerarInputs = (tipo) => {
-        if (tipo === 'radical') {
-            listaRadicais.push({
-                shape: "",
-                meaning: "",
-            });
-            setRadicalsInputs([...radicalsInputs, 
-                <div style={{ display: 'flex' }}>
-                    <KanjiField>
-                        <p>Forma: </p>
-                        <Input onChange={(e) => listaRadicais[listaRadicais.length - 1].shape = e.target.value} />
-                    </KanjiField>
-                    <KanjiField>
-                        <p>Significado: </p>
-                        <Input onChange={(e) => listaRadicais[listaRadicais.length - 1].meaning = e.target.value}/>
-                    </KanjiField>
-                </div>
-            ]);
-        } else {
-            listaKunyomi.push({
-                reading: "",
-                meaning: "",
-            });
-            setKunyomiInputs([...kunyomiInputs,
-                <div style={{ display: 'flex' }}>
-                    <KanjiField>
-                        <p>Leitura: </p>
-                        <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
-                    </KanjiField>
-                    <KanjiField>
-                        <p>Significado: </p>
-                        <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
-                    </KanjiField>
-                </div> 
-            ]);
+    const gerarInputs = () => {
+        listaKunyomi.push({
+            reading: "",
+            meaning: "",
+        });
+        setKunyomiInputs([...kunyomiInputs,
+            <div>
+                <KanjiField>
+                    <label for="reading">Leitura:</label>
+                    <Input name="reading" onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
+                    <label for="meaning">Significado: </label>
+                    <Input name="meaning" onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+                </KanjiField>
+                <Hr />
+            </div> 
+        ]);
+    };
+
+    const removerRadical = () => {
+        if (kunyomiInputs.length > 1) {
+            setKunyomiInputs(kunyomiInputs.slice(0, kunyomiInputs.length - 1));
+            setListaKunyomi(listaKunyomi.slice(0, listaKunyomi.length - 1));
         }
     };
 
-    const removerRadical = (tipo) => {
-        if (tipo === 'radical') {
-            if (radicalsInputs.length > 1) {
-                setRadicalsInputs(radicalsInputs.slice(0, radicalsInputs.length - 1));
-                setListaRadicais(listaRadicais.slice(0, listaRadicais.length - 1))
-            }
-        } else {
-            if (kunyomiInputs.length > 1) {
-                setKunyomiInputs(kunyomiInputs.slice(0, kunyomiInputs.length - 1));
-                setListaKunyomi(listaKunyomi.slice(0, listaKunyomi.length - 1));
-            }
-        }
-    };
+    const getRadicalsListFromAPI = async () => {
+        await getRadicalsList()
+        .then((response) => setRadicals(response.data));
+    }
 
     const registrarKanji = async () => {
-        if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), listaRadicais, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
+        if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
+            setSelectedRadicals([]);
             setKanji('');
-            setKanjiMeaning('');
-            setRadicalsInputs([]);
             setKunyomiInputs([]);
+            setKanjiMeaning('');
             setListaOnyomi('');
         }
     };
 
     useEffect(() => {
-        gerarInputs('radical');
-        gerarInputs('kunyomi');
+        getRadicalsListFromAPI();
+        gerarInputs();
     }, []);
 
     return (
@@ -96,32 +75,35 @@ const AddKanjiPage = () => {
 
                     <Field>
                         <Divisao>Kanji</Divisao>
-                        <div style={{ display: 'flex' }}>
+                        <div>
                             <KanjiField>
-                                <p>Kanji: </p>
-                                <Input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
-                            </KanjiField>
-                            <KanjiField>
-                                <p>Significados: </p>
-                                <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
+                                <label for="kanji">Kanji:</label>
+                                <Input name="kanji" value={kanji} onChange={(e) => setKanji(e.target.value)}/>
+                                <label for="kanjiMeaning">Significado:</label>
+                                <Input name="kanjiMeaning" value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
                             </KanjiField>
                         </div>
                     </Field>
 
                     <Field>
-                        <Buttons>
-                            <Divisao>Radicais</Divisao>
-                            <AddButton onClick={() => gerarInputs('radical')}>Adicionar+</AddButton>
-                            <RemoveButton onClick={() => removerRadical('radical')}>x</RemoveButton>
-                        </Buttons>
-                        {radicalsInputs}
+                        <Divisao>Radicais</Divisao>
+                        <Multiselect 
+                            options={radicals}
+                            displayValue="shape"
+                            onSelect={setSelectedRadicals}
+                            onRemove={setSelectedRadicals}
+                            showArrow={true}
+                            showCheckbox={true}
+                            placeholder="Radicais que compõem o kanji"
+                            emptyRecordMsg="Nenhum radical disponivel"
+                        />
                     </Field>
 
                     <Field>
                         <Divisao>Onyomi</Divisao>
-                        <div style={{ display: 'flex', alignItems: 'center', margin: "0 12px" }}>
-                            <p>Leituras Onyomi: </p>
-                            <input value={listaOnyomi} onChange={(e) => setListaOnyomi(e.target.value)} style={{ width: "100%" }} />
+                        <div>
+                            <label for="onyomi">Leituras Onyomi: </label>
+                            <input name="onyomi" value={listaOnyomi} onChange={(e) => setListaOnyomi(e.target.value)} style={{ width: "100%" }} />
                         </div>
                     </Field>
 

@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import {
     Route, Switch, Redirect,
 } from 'react-router-dom';
-import HomePage from '../Pages/HomePage/';
+
 import Test1Page from '../Pages/Test1Page';
 import Test2Page from '../Pages/Test2Page';
 import Test3Page from '../Pages/Test3Page';
 import AddKanjiPage from '../Pages/AddKanjiPage';
 import SignInPage from '../Pages/SignInPage';
 import SignUpPage from '../Pages/SignUpPage';
-import { useProfileUser } from '../Context/index'; 
 import Test4Page from '../Pages/Test4Page';
+import AddRadicalPage from '../Pages/AddRadicalPage';
+import  HomePage from '../Pages/HomePage';
+
+import { useProfileUser } from '../Context/index'; 
 
 const OtherRoutes = () => {
     const { user } = useProfileUser();
@@ -31,6 +34,7 @@ const OtherRoutes = () => {
                         <Route path="/teste/4" exact component={Test4Page} />
                         
                         <Route path="/add-kanji" exact component={AddKanjiPage} />
+                        <Route path="/add-radical" exact component={AddRadicalPage} />
                     </Switch>
                 ) : (
                     <Switch>
