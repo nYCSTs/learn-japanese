@@ -1,14 +1,23 @@
 import styled from 'styled-components';
+import { Navbar } from 'react-bootstrap';
 
 export const Username = styled.p`
     font-size: 1.5rem;
     font-weight: bold;
+    margin: 0;
 `;
 
 export const P = styled.p`
     display: inline-block;
     font-weight: bold;
-    width: 120px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    @media(max-width: 990px) {
+        width: 100px;
+    }
+
 `;
 
 export const HeaderTop = styled.div`
@@ -42,8 +51,8 @@ export const A = styled.a`
 
 export const Content = styled.div`
     display: flex;
-    justify-content: space-between;
     margin: 0 12px;
+    justify-content: space-between;
 `;
 
 export const Sign = styled.div`
@@ -77,4 +86,11 @@ export const List = styled.div`
     @media (max-width: 750px) {
         justify-content: space-evenly;
     }
+`;
+
+export const NavBar = styled(Navbar)`
+    background-color: #1d439b;
+    
+    
+
 `;

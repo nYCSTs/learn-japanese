@@ -4,6 +4,7 @@ import {
 } from './Style';
 import { useProfileUser } from '../../Context/index';
 import { APIUsers } from '../../Services/Axios/baseService';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const PageHeader = () => {
     const { setToken, user } = useProfileUser();
@@ -26,18 +27,24 @@ const PageHeader = () => {
                     <P>Testes feitos na semana: {user.testesSemanais}</P>
                 </Content>
             </HeaderTop>
-            <HeaderBottom>
-                <List>
-                    <A href="/">Pagina Inicial</A>
-                    { user.role === 'admin' ? (
-                        <>
-                            <A href="/add-kanji">Cadastrar Kanji</A>
-                            <A href="/add-radical">Cadastrar Radical</A>
-                        </>
-                    ) : null}
-                    <A href="/login" onClick={() => logout()}>Sair</A>
-                </List>
-            </HeaderBottom>
+            <Navbar expand="lg" variant="dark" style={{ backgroundColor: '#1d439b' }} >
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/">Pagina Inicial</Nav.Link>
+                        { user.role === 'admin' ? (
+                            <NavDropdown title="Cadastro" id="collasible-nav-dropdown">
+                                <NavDropdown.Item href="/add-kanji">Kanji</NavDropdown.Item>
+                                <NavDropdown.Item href="/add-radical">Radical</NavDropdown.Item>
+                            </NavDropdown>
+                        ) : null}
+                        
+                    </Nav>
+                    <Nav className="ml-auto">
+                        <Nav.Link href="/login" onClick={() => logout()}>Sair</Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         </div>
     );
 };

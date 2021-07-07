@@ -20,6 +20,9 @@ export const TrainingList = styled.div`
 export const Footer = styled.footer`
     display: flex;
     justify-content: center;
-    font-size: 8px;
-    
+    font-size: 8px;  
+`;
+
+export const P = styled.p`
+    font-size: 1.5rem;
 `;

@@ -8,7 +8,7 @@ export const TrainingCard = styled.div`
     padding: 12px;
     display: flex;
     flex-direction: column;
-    margin: 12px;
+    margin: 18px;
 
     @media(max-width: 750px) {
         width: 80%;
@@ -25,6 +25,7 @@ export const Name = styled.div`
     font-size: 15px;
     font-weight: bold;
     height: 36px;
+    text-align: center;
 `;
 
 export const Description = styled.div`

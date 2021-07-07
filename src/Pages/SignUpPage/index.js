@@ -3,7 +3,7 @@ import {
     SignUpBox, RegisterText,
 } from './Style';
 import {
-    UserData, Bottom,
+    UserData, Bottom, P, Button,
 } from '../SignInPage/Style';
 import { createAccount } from '../../Services/Axios/userServices';
 import { useHistory } from 'react-router-dom';
@@ -36,17 +36,17 @@ const SignupPage = () => {
                 Realizar cadastro
             </RegisterText>
             <UserData>
-                <p>Usuario: </p>
+                <P>Usuario: </P>
                 <input style={{ width: '100% '}} value={username} onChange={(e) => setUsername(e.target.value)}></input>
-                <p>Email: </p>
+                <P>Email: </P>
                 <input style={{ width: '100% '}} value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                <p>Senha: </p>
+                <P>Senha: </P>
                 <input style={{ width: '100% '}} value={pass} onChange={(e) => setPass(e.target.value)}type="password"></input>
-                <p>Confirmar senha: </p>
+                <P>Confirmar senha: </P>
                 <input style={{ width: '100% '}} value={confirmationPass} onChange={(e) => setConfirmationPass(e.target.value)}type="password"></input>
             </UserData>
             <Bottom>
-                <button onClick={() => realizarCadastro() }>Registrar</button>
+                <Button onClick={() => realizarCadastro() }>Registrar</Button>
                 <a href="/login">logar-se</a>
             </Bottom>
         </SignUpBox>
