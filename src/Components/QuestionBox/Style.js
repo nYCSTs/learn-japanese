@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-    width: 680px;
+    width: ${(props) => `${props.width}`};
     margin: 50px auto;
     background-color: #8ea1cd;
     padding: 18px;

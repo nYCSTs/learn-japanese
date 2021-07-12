@@ -70,7 +70,7 @@ const AddKanjiPage = () => {
 
     return (
         <QuestionBox
-            titleText = "Cadastrar kanji"
+            title = "Cadastrar kanji"
             children = {
                 <div style={{ width: '100%', overflow: 'auto', maxHeight: '520px' }}>
                     <InputField>
@@ -127,7 +127,7 @@ const AddKanjiPage = () => {
                     </InputField>
                 </div>
             }        
-            answerCheck={registrarKanji}
+            buttonFunction={registrarKanji}
             buttonText="Cadastrar"
         />
     )

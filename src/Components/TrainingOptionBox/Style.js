@@ -18,10 +18,6 @@ export const TrainingCard = styled.div`
     }  
 `;
 
-export const Content = styled.div`
-    height: 100%;
-`;
-
 export const Name = styled.div`
     font-size: 15px;
     font-weight: bold;

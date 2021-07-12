@@ -20,7 +20,7 @@ const AddRadicalPage = () => {
 
     return (
         <QuestionBox 
-            titleText="Registrar Radical"
+            title="Registrar Radical"
             children={
                 <>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>                    
@@ -46,7 +46,8 @@ const AddRadicalPage = () => {
                 </>
             }
             buttonText="Cadastrar"
-            answerCheck={registerRadical}
+            buttonFunction={registerRadical}
+            width="420px"
         />
     )
 }

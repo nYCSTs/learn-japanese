@@ -1,10 +1,12 @@
-import { React, useState } from 'react';
+import { useState } from 'react';
 import {
-    SignInBox, LoginText, UserData, Bottom, P, Button,
+    SignBox, SignText, UserData, Bottom, Button,
 } from './Style';
+import {
+    Input, P
+} from '../../Constants/testStyles';
 import { useProfileUser } from '../../Context/index';
 import { useHistory } from 'react-router-dom';
-import img from '../../Assets/Images/img1.jpg';
 
 const SigninPage = () => {
     const history = useHistory();
@@ -19,21 +21,27 @@ const SigninPage = () => {
     }
 
     return (
-        <SignInBox>
-            <LoginText>
+        <SignBox onKeyPress={
+            (event) => {
+                if (event.key === 'Enter') {
+                    realizarLogin();
+                }
+            }
+        }>
+            <SignText>
                 Realizar login
-            </LoginText>
+            </SignText>
             <UserData>
                 <P>Usuario: </P>
-                <input style={{ width: '100% '}} value={username} onChange={(e) => setUsername(e.target.value)}></input>
+                <Input value={username} onChange={(e) => setUsername(e.target.value)}></Input>
                 <P>Senha: </P>
-                <input style={{ width: '100% '}} value={pass} onChange={(e) => setPass(e.target.value)}type="password"></input>
+                <Input value={pass} onChange={(e) => setPass(e.target.value)}type="password"></Input>
             </UserData>
             <Bottom>
-                <Button onClick={() => realizarLogin() }>Entrar</Button>
+                <Button onClick={ () => realizarLogin() }>Entrar</Button>
                 <a href="/register">cadastrar-se</a>
             </Bottom>
-        </SignInBox>
+        </SignBox>
     );
 };
 

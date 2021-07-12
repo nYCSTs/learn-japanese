@@ -1,36 +1,10 @@
 import styled from 'styled-components';
 
-export const CreationBox = styled.div`
-    width: 580px;
-    margin: 20px auto;
-    background-color: #e1e7f5;
-    border: 1px solid black;
-
-    @media (max-width: 750px) {
-        width: 90%;
-    }
-`;
-
-export const Title = styled.p`
-    font-size: 2rem;
-    text-align: center;
-    margin: 24px 0;
-`;
-
 export const Divisao = styled.p`
     font-size: 1.5rem;
     margin: 0;
     font-weight: bold;
     margin-bottom: 8px;
-`;
-
-export const Input = styled.input`
-    margin: 0 12px;
-    width: 100%;
-
-    @media(max-width: 750px) {
-        margin: 6px 0;
-    }
 `;
 
 export const KanjiField = styled.div`
@@ -81,11 +55,6 @@ export const Buttons = styled.div`
         flex-direction: column;
         align-items: flex-start;
     }
-`;
-
-export const Field = styled.div`
-    margin-bottom: 24px;
-
 `;
 
 export const Hr = styled.hr`

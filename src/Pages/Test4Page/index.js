@@ -30,7 +30,7 @@ const Test4Page = () => {
     return (
         <>
             <QuestionBox
-                titleText="Leituras" 
+                title="Leituras" 
                 children={
                     <Main>
                         <QuestionData>
@@ -52,7 +52,7 @@ const Test4Page = () => {
                     </Main>
                 }
                 buttonText="Confirmar"
-                answerCheck={() => setShowAnswer(true)}
+                buttonFunction={() => setShowAnswer(true)}
             />
             {showAnswer ? (
                 <AnswerBox>

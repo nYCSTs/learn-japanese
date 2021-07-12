@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
-export const SignInBox = styled.div`
+export const SignBox = styled.div`
     background-color: #e1e7f5;
     margin: 280px auto;
     width: 320px;
     padding: 24px;
     border: 1px solid black;
+    border-radius: 12px;
     
 `;
 
-export const LoginText = styled.p`
+export const SignText = styled.p`
     font-size: 28px;
     font-weight: bold;
     margin: 0;

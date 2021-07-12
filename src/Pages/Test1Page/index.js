@@ -70,7 +70,7 @@ const Test1Page = () => {
 
     return (
         <QuestionBox 
-            titleText={kanji}
+            title={kanji}
             children={
                 <>
                     <InputField>
@@ -87,7 +87,7 @@ const Test1Page = () => {
                     </InputField>
                 </>
             }
-            answerCheck={verificarResposta}
+            buttonFunction={verificarResposta}
             buttonText="Confirmar"
         />
     )

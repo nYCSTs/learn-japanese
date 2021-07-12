@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
     P, HeaderTop, Content, Username,
 } from './Style';
@@ -20,14 +19,14 @@ const PageHeader = () => {
     }
 
     return (
-        <div style={{ width: '100%' }}>
+        <>
             <HeaderTop>
                 <Content>
                     <Username>{user.username}</Username>
                     <P>Testes feitos na semana: {testCount}</P>
                 </Content>
             </HeaderTop>
-            <Navbar expand="lg" variant="dark" style={{ backgroundColor: '#1d439b' }} >
+            <Navbar expand="lg" variant="dark" style={{ padding: '6px', backgroundColor: '#1d439b' }} >
                 <Navbar.Brand style={{ margin: '0' }} />
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -46,7 +45,7 @@ const PageHeader = () => {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-        </div>
+        </>
     );
 };
 

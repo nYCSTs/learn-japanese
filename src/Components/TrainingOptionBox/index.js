@@ -1,4 +1,3 @@
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import {
     TrainingCard, Name, Description, Button, ButtonDiv, Content,
@@ -7,22 +6,20 @@ import {
 const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
     const history = useHistory();
 
-    const teste = () => {
+    const testRedirect = () => {
         history.push(`/teste/${urlTeste}`);
     };
     
     return (
         <TrainingCard>
-            <Content>
-                <Name>
-                    {testName}
-                </Name>
-                <Description>
-                    {testDescription}
-                </Description>
-            </Content>
+            <Name>
+                {testName}
+            </Name>
+            <Description>
+                {testDescription}
+            </Description>
             <ButtonDiv>
-                <Button onClick={teste}>Iniciar</Button>
+                <Button onClick={() => testRedirect()}>Iniciar</Button>
             </ButtonDiv>
         </TrainingCard>
     );

@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
-`;
-
-
 export const TrainingList = styled.div`
     display: flex;
     justify-content: space-evenly;
@@ -14,12 +10,4 @@ export const TrainingList = styled.div`
         flex-direction: column;
         justify-content: center;
     }
-`;
-
-export const Footer = styled.footer` 
-`;
-
-export const P = styled.p`
-    font-size: 1.5rem;
-    text-align: center;
 `;

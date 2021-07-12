@@ -6,6 +6,7 @@ export const Input = styled.input`
     outline: none;
     border: 1px solid black;
     border-radius: 4px;
+    text-indent: 1px;
 `;
 
 export const P = styled.p`

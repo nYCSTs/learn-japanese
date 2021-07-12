@@ -13,7 +13,6 @@ export const Test = styled.div`
         min-width: auto;
         background-color: transparent;
     }
-
 `;
 
 export const Question = styled.p`
@@ -72,6 +71,6 @@ export const Kanji = styled.h1`
 `;
 
 export const OnKun = styled.div`
-font-size: 18px;
+    font-size: 18px;
 `;
 

@@ -1,23 +1,21 @@
-import { React } from 'react';
 import {
     Main, Title, InputList, Button,
 } from './Style';
-import img from '../../Assets/Images/img1.jpg';
 
-const QuestionBox = ({titleText, children, answerCheck, buttonText}) => {
+const QuestionBox = ({title, children, buttonFunction, buttonText, width = '680px' }) => {
     return (
-        <Main onKeyPress={
+        <Main width={width} onKeyPress={
             (event) => {
                 if (event.key === 'Enter') {
-                    answerCheck();
+                    buttonFunction();
                 }
             }
         }>
-            <Title>{titleText}</Title>
+            <Title>{title}</Title>
             <InputList>
                 {children}
             </InputList>
-            <Button onClick={() => answerCheck()}>{buttonText}</Button>
+            <Button onClick={() => buttonFunction()}>{buttonText}</Button>
         </Main>
     );
 };
