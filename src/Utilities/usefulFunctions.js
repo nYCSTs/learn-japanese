@@ -20,6 +20,7 @@ const generateTestResults = (user, answer) => {
         } else {
             wrong.push(val);
         }
+        return null;
     });
 
     return [correct, wrong];

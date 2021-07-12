@@ -12,7 +12,6 @@ export const getKanjisList = async () => {
 };
 
 export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi) => {
-    console.log(radicals);
     try {
         const response = await APIKanjis.post('/kanji/add', {
             kanji,
@@ -42,11 +41,12 @@ export const getRadicalsList = async () => {
     }
 }
 
-export const addNewRadical = async (shape, meaning) => {
+export const addNewRadical = async (shape, meaning, strokeCount) => {
     try {
         const response = await APIKanjis.post('radicals/add', {
             shape,
-            meaning
+            meaning,
+            strokeCount
         });
         if (response.data.err === 'duplicated') {
             alert('Radical ja cadastrado');
@@ -56,5 +56,4 @@ export const addNewRadical = async (shape, meaning) => {
         console.error(err);
         return false;
     }
-
 }

@@ -1,32 +1,43 @@
 import styled from 'styled-components';
 
-export const Test = styled.div`
-    background-color: #8ea1cd;
-    margin: 60px auto;
-    width: 45%;
-
+export const Main = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;
 
-export const Question = styled.div`
-    justify-content: space-between;
+export const QuestionData = styled.div`
+`;
+
+export const TipField = styled.div`
     display: flex;
-    margin: 24px;
+    flex-direction: column;
+`;
+
+export const Tip = styled.p`
+    font-size: 32px;
+    text-align: center;
+    font-weight: bold;
 `;
 
 export const Reading = styled.p`
     margin: 0;
-`;
-
-export const Buttons = styled.div`
-`;
-
-export const OnKun = styled.div`
-
-`;
-
-export const P = styled.p`
     font-weight: bold;
-    display: inline-block;
-    font-size: 1.5rem;
-    margin: 0;
+    font-size: 24px;
+`;
+
+export const Button = styled.button`
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 14px;
+`;
+
+export const AnswerBox = styled.div`
+    width: 25%;
+    background-color: red;
+    margin: 0 auto;
+    padding: 32px;
+    text-align: center;
+    border-radius: 12px;
 `;

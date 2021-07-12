@@ -4,11 +4,12 @@ export const TrainingCard = styled.div`
     width: 280px;
     height: 240px;
     border-radius: 18px;
-    border: 1px solid black;
+    border: 4px solid #43AC6A;
     padding: 12px;
     display: flex;
     flex-direction: column;
     margin: 18px;
+    background-color: white;
 
     @media(max-width: 750px) {
         width: 80%;

@@ -7,6 +7,7 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
     const [token, setToken] = useState('');
     const [user, setUser] = useState('');
+    const [testCount, setTestCount] = useState();
 
     useEffect(() => {
         const storagedToken = localStorage.getItem('@App:token');
@@ -24,6 +25,7 @@ const UserProvider = ({ children }) => {
         if (token) {
             localStorage.setItem('@App:token', token);
             localStorage.setItem('@App:user', user);
+            setTestCount(user.testesSemanais)
         }
     }, [token, user]);
 
@@ -32,7 +34,6 @@ const UserProvider = ({ children }) => {
             localStorage.setItem('@App:user', JSON.stringify(user));
         }
     }, [user]);
-
 
     const handleLogin = async (username, password) => {
         const userInfo = await loginUser(username, password);
@@ -46,11 +47,13 @@ const UserProvider = ({ children }) => {
 
     return (
         <UserContext.Provider value={{
-        token,
-        setToken,
-        user,
-        setUser,
-        handleLogin,
+            token,
+            setToken,
+            user,
+            setUser,
+            handleLogin,
+            testCount,
+            setTestCount,
         }}
         >
         { children }

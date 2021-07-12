@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Page = styled.div`
-    height: 100vh;
 `;
 
 
@@ -17,12 +16,10 @@ export const TrainingList = styled.div`
     }
 `;
 
-export const Footer = styled.footer`
-    display: flex;
-    justify-content: center;
-    font-size: 8px;  
+export const Footer = styled.footer` 
 `;
 
 export const P = styled.p`
     font-size: 1.5rem;
+    text-align: center;
 `;

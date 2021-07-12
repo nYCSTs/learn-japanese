@@ -3,7 +3,6 @@ import {
     Page, TrainingList, Footer, P,
 } from './Style';
 import TrainingOptionBox from '../../Components/TrainingOptionBox';
-import PageHeader from '../../Components/PageHeader';
 
 const HomePage = () => {
     return (
@@ -35,8 +34,8 @@ const HomePage = () => {
                     urlTeste="5" 
                 />
             </TrainingList>
-            <hr/>
             <Footer>
+                <hr />
                 <P>Feito por <a style={{ textDecoration: 'none', color: 'blue' }} href="https://github.com/nYCSTs/">Lucas</a></P>
             </Footer>
         </Page>

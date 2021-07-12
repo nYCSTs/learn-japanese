@@ -1,39 +1,53 @@
 import { React, useState } from 'react';
-import PageHeader from '../../Components/PageHeader';
+import QuestionBox from '../../Components/QuestionBox';
 import {
-    RadicalsBox, Title, InputDiv, P,
-} from './Style';
+    P, Input, InputField
+} from '../../Constants/testStyles';
 import { addNewRadical } from '../../Services/Axios/kanjiServices';
 
 const AddRadicalPage = () => {
     const [radicalShape, setRadicalShape] = useState('');
     const [radicalMeaning, setRadicalMeaning] = useState('');
+    const [radicalStrokeCount, setRadicalStrokeCount] = useState(1);
 
     const registerRadical = async () => {
-        if (await addNewRadical(radicalShape, radicalMeaning)) {
+        if (await addNewRadical(radicalShape, radicalMeaning, radicalStrokeCount)) {
             setRadicalShape('');
             setRadicalMeaning('');
+            setRadicalStrokeCount(1);
         }
     };
 
     return (
-        <>
-            <PageHeader />
-            <RadicalsBox>
-                <Title>
-                    Registrar Radical
-                </Title>
-                <InputDiv>
-                    <P>Forma: </P>
-                    <input style={{ width: '100%' }} value={radicalShape} onChange={(e) => setRadicalShape(e.target.value)}/>
-                </InputDiv>
-                <InputDiv>
-                    <P>Significado: </P>
-                    <input style={{ width: '100%' }} value={radicalMeaning} onChange={(e) => setRadicalMeaning(e.target.value)}/>
-                </InputDiv>
-                <button onClick={() => registerRadical()}>Registrar</button>
-            </RadicalsBox>
-        </>
+        <QuestionBox 
+            titleText="Registrar Radical"
+            children={
+                <>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>                    
+                        <InputField>
+                            <P>Forma: </P>
+                            <Input value={radicalShape} onChange={(e) => setRadicalShape(e.target.value)}/>
+                        </InputField>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: '12px' }}>
+                            <P>Traços: </P>
+                            <select value={radicalStrokeCount} style={{ height: 'min-content' }} onChange={(e) => setRadicalStrokeCount(e.target.value)}>
+                                {[...Array(18).keys()].slice(1).map((stroke) => {
+                                    return (
+                                        <option>{stroke}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                    <InputField>
+                        <P>Significado: </P>
+                        <Input value={radicalMeaning} onChange={(e) => setRadicalMeaning(e.target.value)}/>
+                    </InputField>
+                </>
+            }
+            buttonText="Cadastrar"
+            answerCheck={registerRadical}
+        />
     )
 }
 

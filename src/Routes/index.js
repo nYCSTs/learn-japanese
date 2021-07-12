@@ -10,8 +10,6 @@ const Routes = () => {
         token
     } = useProfileUser();
 
-    console.log(token);
-
     return (
         <BrowserRouter>
             {

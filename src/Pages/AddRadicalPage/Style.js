@@ -13,19 +13,3 @@ export  const RadicalsBox = styled.div`
         width: 90%;
     }
 `;
-
-export const InputDiv = styled.div`
-    margin: 12px;
-    text-align: left;
-`;
-
-export const Title = styled.div`
-    font-size: 1.5rem;
-    text-align: center;
-`;
-
-export const P = styled.p`
-    display: inline-block;
-    margin-right: 12px;
-    width: 100px; 
-`;

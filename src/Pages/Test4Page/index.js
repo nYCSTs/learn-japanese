@@ -1,63 +1,65 @@
-import { React, useEffect, useState } from 'react';
-import PageHeader from '../../Components/PageHeader';
-import {
-    Test, Question, Reading, Buttons, OnKun, P,
-} from './Style';
+import { useEffect, useState } from 'react';
+import QuestionBox from '../../Components/QuestionBox';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
+import {
+    Main, QuestionData, TipField, Tip, Reading, Button, AnswerBox,
+} from './Style';
 
 const Test4Page = () => {
     const [kanjisList, setKanjisList] = useState([]);
-    const [showClue, setShowClue] = useState(false);
+    const [showTip, setShowTip] = useState(false);
     const [showAnswer, setShowAnswer] = useState(false);
+    const [question, setQuestion] = useState();
 
-    const exibirDica = () => {
-        if (showClue) {
-            const randomRadicalIndex = Math.floor(Math.random() * kanjisList[0].radicals.length);
-            return (
-                <div>
-                    <P>Radical: </P>
-                    <Reading>{kanjisList[0].radicals[randomRadicalIndex].shape} ({kanjisList[0].radicals[randomRadicalIndex].meaning})</Reading>
-                </div>
-            )
-        }
-    }
- 
-    const verificarResposta = () => {
-        if (showAnswer) {
-            return (
-                <div style={{ margin: '0px auto', width: '80%', backgroundColor: 'red' }}>
-                    <button onClick={() => setShowAnswer(false)}>Fechar</button>
-                </div>
-            )
-        } 
-    }
+    const gerarPergunta = () => {
+        setShowAnswer(false);
+        setShowTip(false);
+        kanjisList.push(kanjisList.shift());
+        setQuestion(kanjisList[0]);
+    };
 
-    useEffect(() => {
-        getKanjisList()
+    useEffect(async () => {
+        await getKanjisList()
         .then((response) => setKanjisList(response.data));
     }, []);
 
+    useEffect(() => {
+        setQuestion(kanjisList[0]);
+    }, [kanjisList]);
+
     return (
         <>
-            <PageHeader />
-            <Test>
-                <h1 style={{ textAlign: 'center' }}>Leituras:</h1>
-                <Question>
-                    <OnKun>
-                        <P>Onyomi:</P>
-                        <Reading>{kanjisList[0]?.onyomi}</Reading>
-                        <P>Kunyomi:</P>
-                        <Reading>{kanjisList[0]?.kunyomi.map((leitura) => leitura.reading).join(', ')}</Reading>
-                    </OnKun>
-                    {exibirDica()}
-                </Question>
-                
-                <Buttons>
-                    <button onClick={() => setShowClue(true)}>Dica</button>
-                    <button onClick={() => setShowAnswer(true)}>Verificar resposta</button> 
-                </Buttons>
-            </Test>
-            {verificarResposta()}
+            <QuestionBox
+                titleText="Leituras" 
+                children={
+                    <Main>
+                        <QuestionData>
+                            <Reading>Onyomi:</Reading>
+                            <p>{question?.onyomi}</p>
+                            <Reading>Kunyomi:</Reading>
+                            <p>{question?.kunyomi.map((v) => {
+                                return `${v.reading} (${v.meaning.join(', ')})`
+                            }).join(', ')}</p>
+                        </QuestionData>
+                        <TipField>
+                            {showTip ? (
+                                <Tip>{question?.radicals[Math.floor(Math.random(10) * question?.radicals.length)].shape}</Tip>
+                            ) : <Tip style={{ opacity: '0' }}>_</Tip>}
+                            <div>
+                                <Button onClick={() => setShowTip(true)}>Exibir dica</Button>
+                            </div>
+                        </TipField>
+                    </Main>
+                }
+                buttonText="Confirmar"
+                answerCheck={() => setShowAnswer(true)}
+            />
+            {showAnswer ? (
+                <AnswerBox>
+                    <h2>Resposta: {question?.kanji}</h2>
+                    <Button onClick={() => gerarPergunta()}>Nova Pergunta</Button>
+                </AnswerBox>
+            ): null}
         </>
     );
 };

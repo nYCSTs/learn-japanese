@@ -1,9 +1,11 @@
 import { React, useEffect, useState } from 'react';
 import { 
-    CreationBox, Title, Input, KanjiField, AddButton, 
-    RemoveButton, Divisao, Buttons, Field, Hr
+    KanjiField, AddButton, RemoveButton, Divisao, Buttons, Hr
 } from './Style';
-import PageHeader from '../../Components/PageHeader';
+import {
+    Input, InputField, P,
+} from '../../Constants/testStyles';
+import QuestionBox from '../../Components/QuestionBox';
 import { addNewKanji, getRadicalsList } from '../../Services/Axios/kanjiServices';
 import Multiselect from 'multiselect-react-dropdown';
 
@@ -29,10 +31,10 @@ const AddKanjiPage = () => {
         setKunyomiInputs([...kunyomiInputs,
             <div>
                 <KanjiField>
-                    <label for="reading">Leitura:</label>
-                    <Input name="reading" onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
-                    <label for="meaning">Significado: </label>
-                    <Input name="meaning" onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+                    <P>Leitura:</P>
+                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
+                    <P>Significado: </P>
+                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
                 </KanjiField>
                 <Hr />
             </div> 
@@ -53,11 +55,11 @@ const AddKanjiPage = () => {
 
     const registrarKanji = async () => {
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
-            setSelectedRadicals([]);
             setKanji('');
             setKunyomiInputs([]);
             setKanjiMeaning('');
             setListaOnyomi('');
+            setSelectedRadicals(selectedRadicals[0]);
         }
     };
 
@@ -67,59 +69,67 @@ const AddKanjiPage = () => {
     }, []);
 
     return (
-        <CreationBox>
-            <Title>Adicionar kanjis</Title>
-            <div style={{ padding: '0 18px', overflow: 'auto', maxHeight: '620px' }}>
-
-                <Field>
-                    <Divisao>Kanji</Divisao>
-                    <div>
+        <QuestionBox
+            titleText = "Cadastrar kanji"
+            children = {
+                <div style={{ width: '100%', overflow: 'auto', maxHeight: '520px' }}>
+                    <InputField>
+                        <Divisao>Kanji</Divisao>
                         <KanjiField>
-                            <label for="kanji">Kanji:</label>
-                            <Input name="kanji" value={kanji} onChange={(e) => setKanji(e.target.value)}/>
-                            <label for="kanjiMeaning">Significado:</label>
-                            <Input name="kanjiMeaning" value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
+                            <P>Kanji:</P>
+                            <Input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
+                            <P>Significado:</P>
+                            <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
                         </KanjiField>
-                    </div>
-                </Field>
+                    </InputField>
 
-                <Field>
-                    <Divisao>Radicais</Divisao>
-                    <Multiselect 
-                        options={radicals}
-                        displayValue="shape"
-                        onSelect={setSelectedRadicals}
-                        onRemove={setSelectedRadicals}
-                        showArrow={true}
-                        showCheckbox={true}
-                        placeholder="Radicais que compõem o kanji"
-                        emptyRecordMsg="Nenhum radical disponivel"
-                    />
-                </Field>
+                    <InputField>
+                        <Divisao>Radicais</Divisao>
+                        <Multiselect 
+                            options={radicals}
+                            displayValue="shape"
+                            onSelect={setSelectedRadicals}
+                            onRemove={setSelectedRadicals}
+                            showArrow={true}
+                            placeholder=""
+                            emptyRecordMsg=""
+                            style={{
+                                searchBox: {
+                                    border: '1px solid black',
+                                },
+                                chips: {
+                                    margin: '0',
+                                    height: '22px',
+                                    borderRadius: '12px',
+                                },
+                                inputField: {
+                                    margin: '0',
+                                },
+                            }}
+                        />
+                    </InputField>
 
-                <Field>
-                    <Divisao>Onyomi</Divisao>
-                    <div>
-                        <label for="onyomi">Leituras Onyomi: </label>
-                        <input name="onyomi" value={listaOnyomi} onChange={(e) => setListaOnyomi(e.target.value)} style={{ width: "100%" }} />
-                    </div>
-                </Field>
+                    <InputField>
+                        <Divisao>Onyomi</Divisao>
+                        <P>Leituras: </P>
+                        <Input value={listaOnyomi} onChange={(e) => setListaOnyomi(e.target.value)} />
+                    </InputField>
 
-                <Field>
-                    <Buttons>
-                        <Divisao style={{ margin: '0' }}>Kunyomi</Divisao>
-                        <AddButton onClick={() => gerarInputs('kunyomi')}>Adicionar+</AddButton>
-                        <RemoveButton onClick={() => removerRadical('kunyomi')}>x</RemoveButton>
-                    </Buttons>
-                    {kunyomiInputs}
-                </Field>
-
-                <Field>
-                    <button style={{ marginBottom: '12px' }} onClick={() => registrarKanji()}>Cadastrar</button>
-                </Field>
-            </div>
-        </CreationBox>
-        
+                    <InputField>
+                        <Buttons>
+                            <Divisao style={{ margin: '0' }}>Kunyomi</Divisao>
+                            <div>
+                                <AddButton onClick={() => gerarInputs('kunyomi')}>Adicionar+</AddButton>
+                                <RemoveButton onClick={() => removerRadical('kunyomi')}>x</RemoveButton>
+                            </div>
+                        </Buttons>
+                        {kunyomiInputs}
+                    </InputField>
+                </div>
+            }        
+            answerCheck={registrarKanji}
+            buttonText="Cadastrar"
+        />
     )
 }
 

@@ -1,12 +1,15 @@
-import { React, useEffect, useState } from 'react';
-import PageHeader from '../../Components/PageHeader';
+import { useEffect, useState } from 'react';
 import { generateTestResults } from '../../Utilities/usefulFunctions';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Test, Question, Answer, Field, Submit, Input, Button, P
-} from './Style';
+    P, Input, InputField,
+} from '../../Constants/testStyles';
+import QuestionBox from '../../Components/QuestionBox';
+import { useProfileUser } from '../../Context/index';
+import { addTestCount } from '../../Services/Axios/userServices';
 
 const Test1Page = () => {
+    const { user, testCount, setTestCount } = useProfileUser();
     const [kanji, setKanji] = useState(''); // Kanji da questao
     const [kanjis, setKanjis] = useState([]); // Lista de kanjis
     // Resposta
@@ -35,17 +38,21 @@ const Test1Page = () => {
                 alert("Correta");
             } else {
                 alert("Errada");
-            }
+            };
+            alert(`Onyomi: ${onyomiReadingAnswer}\nKunyomi: ${kunyomiReadingAnswer}\nSignificado: ${kanjiMeaningAnswer.join(', ')}`)
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
-            alert(`Leitura onyomi:\n${onyomiReadingAnswer}\n\nLeitura kunyomi:\n${kunyomiReadingAnswer}\n\nSignificado:\n${kanjiMeaningAnswer}`);
-        }
-    
+        };
+
+
+        setTestCount(testCount + 1);
+        await addTestCount(user._id, testCount);
+        
         setOnyomiReading('');
         setKunyomiReading('');
         setKanjiMeaning('');
         gerarPergunta();
     };
-    
+
     const gerarPergunta = () => {
         setKanji(kanjis[0]?.kanji);
         setOnyomiReadingAnswer(kanjis[0]?.onyomi);
@@ -62,31 +69,27 @@ const Test1Page = () => {
     }, [kanjis]);
 
     return (
-        <>
-            <PageHeader />
-            <Test>
-                <Question>
-                    {kanji}
-                </Question>
-                <Answer>
-                    <Field>
+        <QuestionBox 
+            titleText={kanji}
+            children={
+                <>
+                    <InputField>
                         <P>Leitura Onyomi: </P>
                         <Input value={onyomiReading} onChange={(e => setOnyomiReading(e.target.value))} />
-                    </Field>
-                    <Field>
+                    </InputField>
+                    <InputField>
                         <P>Leitura Kunyomi: </P>
                         <Input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)} />
-                    </Field>
-                    <Field>
+                    </InputField>
+                    <InputField>
                         <P>Significado: </P>
                         <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)} />
-                    </Field>
-                </Answer>
-                <Submit>
-                    <Button onClick={verificarResposta}>Responder</Button>
-                </Submit>
-            </Test>
-        </>
+                    </InputField>
+                </>
+            }
+            answerCheck={verificarResposta}
+            buttonText="Confirmar"
+        />
     )
 }
 

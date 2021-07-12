@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import PageHeader from "../../Components/PageHeader";
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import { shuffleKanjiList } from '../../Utilities/usefulFunctions';
 
@@ -13,24 +12,16 @@ const Test2Page = () => {
     const [showButton, setShowButton] = useState(true);
     const [kanjisList, setKanjisList] = useState([]);
 
-    const getKanjisListFromAPI = () => {
-        getKanjisList()
+    const getKanjisListFromAPI = async () => {
+        await getKanjisList()
         .then((response) => setKanjisList(response.data));
-    }
+    };    
 
-    useEffect(() => {
-        getKanjisListFromAPI();
-    }, []);
-
-    useEffect(() => {
-        gerarPergunta();
-    }, [kanjisList]);
-
-    const teste = () => {
+    const showCards = () => {
         if (showButton) {
             return (
-                <div style={{ textAlign: 'center', fontSize: '42px', marginTop: '64px' }}>
-                    <Button onClick={() => setShowButton(!setShowButton)}>Mostrar cartas</Button>
+                <div style={{ textAlign: 'center' }}>
+                    <Button onClick={() => setShowButton(false)}>Mostrar cartas</Button>
                 </div>
             );
         } else {
@@ -71,12 +62,21 @@ const Test2Page = () => {
         setShowButton(true);
     }
 
+    useEffect(() => {
+        getKanjisListFromAPI();
+    }, []);
+
+    useEffect(() => {
+        gerarPergunta();
+    }, [kanjisList]);
+
     return (
         <>
-            <PageHeader />
             <Test>
                 <Question>{question?.kanjiMeaning.join(', ')}</Question>
-                {teste()}
+                <div>
+                    {showCards()}
+                </div>
             </Test>
         </>
     )

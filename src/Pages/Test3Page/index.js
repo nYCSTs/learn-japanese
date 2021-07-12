@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import PageHeader from '../../Components/PageHeader';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
-import {
-    Test, Question, Field, Answer, Submit, Button, P
-} from '../Test1Page/Style';
+// import {
+//     QuestionBox, Question, Field, Answer, Submit, Button, P
+// } from '../Test1Page/Style';
 
 const Test2Page = () => {
     const [kanjisList, setKanjisList] = useState([]);
@@ -73,11 +73,11 @@ const Test2Page = () => {
     return (
         <>
             <PageHeader />
-            <Test>
+            {/* <QuestionBox>
                 <Question>
                     {question}
                 </Question>
-                <Answer>
+                <>
                     <Field>
                         <P>Kanji: </P>
                         <input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
@@ -90,11 +90,11 @@ const Test2Page = () => {
                         <P>Leitura Kunyomi: </P>
                         <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)}/>
                     </Field>
-                </Answer>
+                </>
                 <Submit>
                     <Button onClick={verificarResposta}>Responder</Button>
                 </Submit>
-            </Test>
+            </QuestionBox> */}
         </>
     );
 };

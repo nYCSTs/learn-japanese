@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
 import {
-    Route, Switch, Redirect,
+    Route, Switch,
 } from 'react-router-dom';
 
 import Test1Page from '../Pages/Test1Page';
@@ -16,7 +15,6 @@ import { useProfileUser } from '../Context/index';
 
 const UserRoutes = () => {
     const { user } = useProfileUser();
-    console.log(user);
 
     return (
         <>

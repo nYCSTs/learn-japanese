@@ -1,13 +1,13 @@
 import React from 'react';
 import { 
-    P, HeaderTop, A, HeaderBottom, Content, List, Username,
+    P, HeaderTop, Content, Username,
 } from './Style';
 import { useProfileUser } from '../../Context/index';
 import { APIUsers } from '../../Services/Axios/baseService';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const PageHeader = () => {
-    const { setToken, user } = useProfileUser();
+    const { setToken, user, testCount } = useProfileUser();
 
     const logout = () => {
         try {
@@ -24,10 +24,11 @@ const PageHeader = () => {
             <HeaderTop>
                 <Content>
                     <Username>{user.username}</Username>
-                    <P>Testes feitos na semana: {user.testesSemanais}</P>
+                    <P>Testes feitos na semana: {testCount}</P>
                 </Content>
             </HeaderTop>
             <Navbar expand="lg" variant="dark" style={{ backgroundColor: '#1d439b' }} >
+                <Navbar.Brand style={{ margin: '0' }} />
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
@@ -38,9 +39,9 @@ const PageHeader = () => {
                                 <NavDropdown.Item href="/add-radical">Radical</NavDropdown.Item>
                             </NavDropdown>
                         ) : null}
-                        
                     </Nav>
                     <Nav className="ml-auto">
+                        <NavDropdown.Divider />
                         <Nav.Link href="/login" onClick={() => logout()}>Sair</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
