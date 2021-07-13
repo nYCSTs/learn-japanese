@@ -5,9 +5,6 @@ export const Main = styled.div`
     justify-content: space-between;
 `;
 
-export const QuestionData = styled.div`
-`;
-
 export const TipField = styled.div`
     display: flex;
     flex-direction: column;
@@ -34,10 +31,11 @@ export const Button = styled.button`
 `;
 
 export const AnswerBox = styled.div`
-    width: 25%;
-    background-color: red;
+    width: min-content;
+    background-color: #8ea1cd;
     margin: 0 auto;
     padding: 32px;
     text-align: center;
     border-radius: 12px;
+    border: 1px solid black;
 `;

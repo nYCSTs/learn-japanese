@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import QuestionBox from '../../Components/QuestionBox';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
 import {
-    Main, QuestionData, TipField, Tip, Reading, Button, AnswerBox,
+    Main, TipField, Tip, Reading, Button, AnswerBox,
 } from './Style';
 
 const Test4Page = () => {
@@ -19,8 +19,11 @@ const Test4Page = () => {
     };
 
     useEffect(async () => {
-        await getKanjisList()
-        .then((response) => setKanjisList(response.data));
+        const getKanjisFromAPI = async () => {
+            await getKanjisList()
+            .then((response) => setKanjisList(response.data));
+        };
+        getKanjisFromAPI();
     }, []);
 
     useEffect(() => {
@@ -31,19 +34,20 @@ const Test4Page = () => {
         <>
             <QuestionBox
                 title="Leituras" 
+                kanji={question?.kanji}
                 children={
                     <Main>
-                        <QuestionData>
+                        <div>
                             <Reading>Onyomi:</Reading>
-                            <p>{question?.onyomi}</p>
+                            <p style={{ margin: '0' }}>{question?.onyomi.join(', ')}</p>
                             <Reading>Kunyomi:</Reading>
-                            <p>{question?.kunyomi.map((v) => {
-                                return `${v.reading} (${v.meaning.join(', ')})`
-                            }).join(', ')}</p>
-                        </QuestionData>
+                            {question?.kunyomi.map((v) => {
+                                return <p style={{ margin: '0' }}>{`${v.reading} (${v.meaning.join(', ')})`}</p>
+                            })}
+                        </div>
                         <TipField>
                             {showTip ? (
-                                <Tip>{question?.radicals[Math.floor(Math.random(10) * question?.radicals.length)].shape}</Tip>
+                                <Tip>{question?.radicals[0].shape}</Tip>
                             ) : <Tip style={{ opacity: '0' }}>_</Tip>}
                             <div>
                                 <Button onClick={() => setShowTip(true)}>Exibir dica</Button>
@@ -51,12 +55,12 @@ const Test4Page = () => {
                         </TipField>
                     </Main>
                 }
-                buttonText="Confirmar"
+                buttonText="Verificar"
                 buttonFunction={() => setShowAnswer(true)}
             />
             {showAnswer ? (
                 <AnswerBox>
-                    <h2>Resposta: {question?.kanji}</h2>
+                    <p style={{ fontSize: '26px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>Resposta: {question?.kanji}</p>
                     <Button onClick={() => gerarPergunta()}>Nova Pergunta</Button>
                 </AnswerBox>
             ): null}

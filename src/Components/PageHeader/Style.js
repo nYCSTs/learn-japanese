@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-export const Username = styled.p`
+export const Username = styled.a`
+    display: flex;
+    align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0;
+    color: black;
+    text-decoration: none;
 `;
 
 export const P = styled.p`

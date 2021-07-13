@@ -38,8 +38,9 @@ const Test1Page = () => {
                 alert("Correta");
             } else {
                 alert("Errada");
+                
             };
-            alert(`Onyomi: ${onyomiReadingAnswer}\nKunyomi: ${kunyomiReadingAnswer}\nSignificado: ${kanjiMeaningAnswer.join(', ')}`)
+            alert(`Onyomi: ${onyomiReadingAnswer.join(', ')}\nKunyomi: ${kunyomiReadingAnswer.join(', ')}\nSignificado: ${kanjiMeaningAnswer.join(', ')}`)
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
         };
 
@@ -71,6 +72,7 @@ const Test1Page = () => {
     return (
         <QuestionBox 
             title={kanji}
+            kanji={kanji}
             children={
                 <>
                     <InputField>

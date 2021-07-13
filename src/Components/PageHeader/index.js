@@ -22,7 +22,7 @@ const PageHeader = () => {
         <>
             <HeaderTop>
                 <Content>
-                    <Username>{user.username}</Username>
+                    <Username href="/">{user.username}</Username>
                     <P>Testes feitos na semana: {testCount}</P>
                 </Content>
             </HeaderTop>

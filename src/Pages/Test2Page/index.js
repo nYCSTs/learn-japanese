@@ -4,7 +4,7 @@ import { shuffleKanjiList } from '../../Utilities/usefulFunctions';
 
 // Styles
 import {
-    Test, Question, Button, Cards, Card, Kanji, OnKun,
+    Test, Question, Button, Cards, Card, Kanji, OnKun, P,
 } from './Style';
 
 const Test2Page = () => {
@@ -37,7 +37,9 @@ const Test2Page = () => {
                                 </OnKun>
                                 <OnKun>
                                     <p style={{ fontWeight: "bold", textDecoration: "underline"}}>Kunyomi:</p>
-                                    <p>{data.kunyomi[0].meaning.join(', ')}</p>
+                                    {data.kunyomi.map((r) => {
+                                        return <P>{r.reading}</P>;
+                                    })}
                                 </OnKun>
                             </Card>
                         )

@@ -1,101 +1,64 @@
-import { React, useEffect, useState } from 'react';
-import PageHeader from '../../Components/PageHeader';
+import { useEffect, useState } from 'react';
 import { getKanjisList } from '../../Services/Axios/kanjiServices';
-// import {
-//     QuestionBox, Question, Field, Answer, Submit, Button, P
-// } from '../Test1Page/Style';
+import QuestionBox from '../../Components/QuestionBox';
+import { 
+    P, Input, InputField
+} from '../../Constants/testStyles';
+import { generateTestResults } from '../../Utilities/usefulFunctions';
 
 const Test2Page = () => {
     const [kanjisList, setKanjisList] = useState([]);
-    const [question, setQuestion] = useState('');
-    // Resposta
-    const [onyomiReadingAnswer, setOnyomiReadingAnswer] = useState([]); // Leitura onyomi       - Resposta
-    const [kunyomiReadingAnswer, setKunyomiReadingAnswer] = useState([]); // Leitura kunyomi    - Resposta
-    const [kanjiAnswer, setKanjiAnswer] = useState([]); // Significado do kanji   - Resposta
-    // Resposta do usuario
-    const [onyomiReading, setOnyomiReading] = useState([]); // Leitura onyomi                   - Usuario
-    const [kunyomiReading, setKunyomiReading] = useState([]); // Leitura kunyomi                - Usuario
-    const [kanji, setKanji] = useState(''); // Significado do kanji               - Usuario
+    const [question, setQuestion] = useState();
 
-    const getKanjisListFromAPI = () => {
-        getKanjisList()
-        .then((response) => setKanjisList(response.data));
-    };
-
-    const gerarPergunta = () => {
-        //Pergunta
-        setQuestion(kanjisList[0]?.meaning.join(', '));
-        setOnyomiReadingAnswer(kanjisList[0]?.onyomiReading);
-        setKunyomiReadingAnswer(kanjisList[0]?.kunyomiReading);
-        setKanjiAnswer(kanjisList[0]?.kanji);
-    };
+    const [kanjiAnswer, setKanjiAnswer] = useState('');
+    const [onyomiAnswer, setOnyomiAnswer] = useState('');
+    const [kunyomiAnswer, setKunyomiAnswer] = useState('');
 
     const verificarResposta = () => {
-        if (kanji === kanjiAnswer) {
-            // Correta
-            if (onyomiReadingAnswer.length === onyomiReading.length && kunyomiReadingAnswer.length === kunyomiReading.length) {
-                onyomiReading.sort();
-                onyomiReadingAnswer.sort();
-                kunyomiReading.sort();
-                kunyomiReadingAnswer.sort();
-                if (onyomiReading === onyomiReadingAnswer && kunyomiReading === kunyomiReadingAnswer) {
-                    kanjisList[kanjisList.length - 1] = kanjisList.shift();
-                    alert("100% Correta!");
-                } else {
-                    alert("Parcialmente Correta");
-                    kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
-                }
-            }
-            // Parcial 
-            else {
-                alert("Parcialmente Correta");
-                kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
-            }
+        const [correct, wrong] = generateTestResults(kunyomiAnswer, question?.kunyomi.map((r) => r.reading));
+        if (question?.kanji === kanjiAnswer.trim() && !wrong.length) {
+            alert('Correto!');
         } else {
-            kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
-            alert("Resposta errada :(");
+            if (correct.length) {
+                alert('Incompleto');
+            } else {
+                alert('Errado');
+            }
+            alert(`Onyomi: ${question.onyomi.join(', ')}\n\nKunyomi: ${question.kunyomi.map((r) => `${r.reading} (${r.meaning})`).join(', ')}\n\nSignificado: ${question.kanjiMeaning.join(', ')}`)
         }
-        gerarPergunta();
-        setOnyomiReading('');
-        setKunyomiReading('');
-        setKanji('');
-
+        kanjisList.push(kanjisList.shift());
+        setQuestion(kanjisList[0]);
     }
 
     useEffect(() => {
+        const getKanjisListFromAPI = async () => {
+            await getKanjisList()
+            .then((response) => setKanjisList(response.data));
+        };
         getKanjisListFromAPI();
     }, []);
 
     useEffect(() => {
-        gerarPergunta();
+        setQuestion(kanjisList[0]);
     }, [kanjisList]);
 
     return (
-        <>
-            <PageHeader />
-            {/* <QuestionBox>
-                <Question>
-                    {question}
-                </Question>
-                <>
-                    <Field>
-                        <P>Kanji: </P>
-                        <input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
-                    </Field>
-                    <Field>
-                        <P>Leitura Onyomi: </P>
-                        <input value={onyomiReading} onChange={(e) => setOnyomiReading(e.target.value)}/>
-                    </Field>
-                    <Field>
-                        <P>Leitura Kunyomi: </P>
-                        <input value={kunyomiReading} onChange={(e) => setKunyomiReading(e.target.value)}/>
-                    </Field>
-                </>
-                <Submit>
-                    <Button onClick={verificarResposta}>Responder</Button>
-                </Submit>
-            </QuestionBox> */}
-        </>
+        <QuestionBox 
+            title={question?.kanjiMeaning.join(', ')}
+            kanji={question?.kanji}
+            children={
+                <InputField>
+                    <P>Kanji: </P>
+                    <Input value={kanjiAnswer} onChange={(e) => setKanjiAnswer(e.target.value)} />
+                    <P>Onyomi: </P>
+                    <Input value={onyomiAnswer} onChange={(e) => setOnyomiAnswer(e.target.value)} />
+                    <P>Kunyomi: </P>
+                    <Input value={kunyomiAnswer} onChange={(e) => setKunyomiAnswer(e.target.value)} />
+                </InputField>
+            }
+            buttonText="Confirmar"
+            buttonFunction={verificarResposta}
+        />
     );
 };
 

@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 export const Test = styled.div`
     margin: 18px auto;
-    border: 3px solid #43AC6A;
-    border-radius: 12px;
     background-color: white;
     max-width: 720px;
     padding: 0 32px 12px 32px;
@@ -18,7 +16,10 @@ export const Test = styled.div`
 export const Question = styled.p`
     text-align: center;
     font-size: 32px;
-    margin: 0;
+    padding: 12px;
+    background-color: white;
+    border-radius: 24px;
+    border: 1px solid black;
 `;
 
 export const Button = styled.button`
@@ -57,7 +58,7 @@ export const Card = styled.div`
     border-radius: 18px;
 
     @media(max-width: 750px) {
-        width: 90%;
+        width: 100%;
         height: min-content;
         margin: 12px auto;
     }
@@ -74,3 +75,6 @@ export const OnKun = styled.div`
     font-size: 18px;
 `;
 
+export const P = styled.p`
+    margin: 0;
+`;
