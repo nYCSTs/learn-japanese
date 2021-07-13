@@ -50,7 +50,13 @@ const AddKanjiPage = () => {
 
     const getRadicalsListFromAPI = async () => {
         await getRadicalsList()
-        .then((response) => setRadicals(response.data));
+        .then((response) => {
+            setRadicals(response.data.map((r) => {
+                return (
+                    { radical: `${r.shape} - ${r.meaning} (${r.strokeCount})` }
+                );
+            }));
+        });
     }
 
     const registrarKanji = async () => {
@@ -87,7 +93,7 @@ const AddKanjiPage = () => {
                         <Divisao>Radicais</Divisao>
                         <Multiselect 
                             options={radicals}
-                            displayValue="shape"
+                            displayValue="radical"
                             onSelect={setSelectedRadicals}
                             onRemove={setSelectedRadicals}
                             showArrow={true}
