@@ -11,8 +11,6 @@ const shuffleKanjiList = (array) => {
 }
 
 const generateTestResults = (user, answer) => {
-    console.log(user);
-    console.log(answer);
     const wrong = [];
     const correct = [];
 

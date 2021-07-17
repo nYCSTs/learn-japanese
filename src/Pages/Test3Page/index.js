@@ -16,8 +16,8 @@ const Test2Page = () => {
 
     const verificarResposta = () => {
         const [correct, wrong] = generateTestResults(kunyomiAnswer, question?.kunyomi.map((r) => r.reading));
-        console.log(correct);
-        console.log(wrong);
+        (correct);
+        (wrong);
         if (question?.kanji === kanjiAnswer.trim() && !wrong.length) {
             alert('Correto!');
         } else {
@@ -28,7 +28,6 @@ const Test2Page = () => {
             }
             alert(`Onyomi: ${question.onyomi.join(', ')}\n\nKunyomi: ${question.kunyomi.map((r) => `${r.reading}${r.meaning[0] !== '' ? ` (${r.meaning})` : ""}`).join(', ')}\n\nSignificado: ${question.kanjiMeaning.join(', ')}`)
         }
-        question.kunyomi.map((r) => console.log(r.meaning));
         setKanjiAnswer('');
         setOnyomiAnswer('');
         setKunyomiAnswer('');
