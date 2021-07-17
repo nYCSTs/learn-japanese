@@ -26,10 +26,10 @@ const AddKanjiPage = () => {
     const gerarInputs = () => {
         listaKunyomi.push({
             reading: "",
-            meaning: "",
+            meaning: ""
         });
         setKunyomiInputs([...kunyomiInputs,
-            <div>
+            <div idx={kunyomiInputs.length}>
                 <KanjiField>
                     <P>Leitura:</P>
                     <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
@@ -42,7 +42,7 @@ const AddKanjiPage = () => {
     };
 
     const removerRadical = () => {
-        if (kunyomiInputs.length > 1) {
+        if (kunyomiInputs.length >= 0) {
             setKunyomiInputs(kunyomiInputs.slice(0, kunyomiInputs.length - 1));
             setListaKunyomi(listaKunyomi.slice(0, listaKunyomi.length - 1));
         }
@@ -71,7 +71,6 @@ const AddKanjiPage = () => {
 
     useEffect(() => {
         getRadicalsListFromAPI();
-        gerarInputs();
     }, []);
 
     return (
@@ -129,7 +128,7 @@ const AddKanjiPage = () => {
                                 <RemoveButton onClick={() => removerRadical('kunyomi')}>x</RemoveButton>
                             </div>
                         </Buttons>
-                        {kunyomiInputs}
+                        {kunyomiInputs.map((r, idx) => r)}
                     </InputField>
                 </div>
             }        

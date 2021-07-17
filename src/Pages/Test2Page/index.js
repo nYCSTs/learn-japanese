@@ -27,7 +27,7 @@ const Test2Page = () => {
         } else {
             return (
                 <Cards>
-                    {kanjisList.slice(0, 5).map((data, idx) => {
+                    {kanjisList.slice(0, 4).map((data, idx) => {
                         return (
                             <Card key={idx} onClick={() => verificarResposta(data.kanji)}>
                                 <Kanji>{data.kanji}</Kanji>

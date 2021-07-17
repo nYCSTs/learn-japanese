@@ -2,9 +2,8 @@ import styled from 'styled-components';
 
 export const Test = styled.div`
     margin: 18px auto;
-    background-color: white;
-    max-width: 720px;
-    padding: 0 32px 12px 32px;
+    max-width: 730px;
+    padding: 26px;
 
     @media(max-width: 750px) {
         width: 90%;
@@ -37,7 +36,7 @@ export const Button = styled.button`
 
 export const Cards = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     text-align: center;
     width: 100%;
     margin-top: 32px;
@@ -52,10 +51,11 @@ export const Card = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #04AA6D;
-    padding: 12px 32px;
+    padding: 12px 6px;
     height: 320px;
     border: 1px solid black;
     border-radius: 18px;
+    width: 20%;
 
     @media(max-width: 750px) {
         width: 100%;

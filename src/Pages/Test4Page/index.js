@@ -39,11 +39,11 @@ const Test4Page = () => {
                     <Main>
                         <div>
                             <Reading>Onyomi:</Reading>
-                            <p style={{ margin: '0' }}>{question?.onyomi.join(', ')}</p>
+                                <p style={{ margin: '0' }}>{question?.onyomi.join(', ')}</p>
                             <Reading>Kunyomi:</Reading>
-                            {question?.kunyomi.map((v) => {
-                                return <p style={{ margin: '0' }}>{`${v.reading} (${v.meaning.join(', ')})`}</p>
-                            })}
+                                {question?.kunyomi.map((v) => {
+                                    return <p style={{ margin: '0' }}>{`${v.reading}${v.meaning[0] !== '' ? ` (${v.meaning.join(', ')})` : ''}`}</p>
+                                })}
                         </div>
                         <TipField>
                             {showTip ? (

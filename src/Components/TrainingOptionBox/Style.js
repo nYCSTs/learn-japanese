@@ -4,7 +4,7 @@ export const TrainingCard = styled.div`
     width: 280px;
     height: 240px;
     border-radius: 18px;
-    border: 4px solid #43AC6A;
+    border: 2px solid black;
     padding: 12px;
     display: flex;
     flex-direction: column;

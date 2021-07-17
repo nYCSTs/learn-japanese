@@ -17,7 +17,7 @@ const generateTestResults = (user, answer) => {
     const correct = [];
 
     answer.map((val) => {
-        if (user.includes(val)) {
+        if (user === val) {
             correct.push(val);
         } else {
             wrong.push(val);
