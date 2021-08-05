@@ -15,8 +15,10 @@ const AddKanjiPage = () => {
     const [kanji, setKanji] = useState('');
     const [kanjiMeaning, setKanjiMeaning] = useState('');
     // radicais
-    const [radicals, setRadicals] = useState([]);
-    const [selectedRadicals, setSelectedRadicals] = useState([]);
+    const [radicals, setRadicals] = useState([]); // radicais no formato original
+    const [selectedRadicals, setSelectedRadicals] = useState([]); // radicais selecionados
+    const [formatedRadicals, setFormatedRadicals] = useState([]); // radicais formatados
+    const [selectedRadicalsIndex, setSelectedRadicalsIndex] = useState([]); // index dos radicais escolhidos
     // onyomi
     const [listaOnyomi, setListaOnyomi] = useState('');
     //kunyomi
@@ -49,24 +51,30 @@ const AddKanjiPage = () => {
     };
 
     const getRadicalsListFromAPI = async () => {
-        await getRadicalsList()
-        .then((response) => {
-            setRadicals(response.data.map((r) => {
-                return (
-                    { radical: `${r.shape} - ${r.meaning} (${r.strokeCount})` }
-                );
-            }));
-        });
+        const response = await getRadicalsList().then((response) => response.data);
+        setFormatedRadicals(response.map((r, idx) => {
+            return (
+                { 
+                    radical: `${r.shape} - ${r.meaning} (${r.strokeCount})`,
+                    index: idx
+                }
+            );
+        }));
+        setRadicals(response);
     }
 
     const registrarKanji = async () => {
+        selectedRadicalsIndex.map((ind) => {
+            selectedRadicals.push(radicals[ind]);
+        })
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
             setKanji('');
             setKunyomiInputs([]);
             setKanjiMeaning('');
             setListaOnyomi('');
-            setSelectedRadicals(selectedRadicals[0]);
         }
+        setSelectedRadicals([]);
+        setSelectedRadicalsIndex([]);
     };
 
     useEffect(() => {
@@ -77,7 +85,7 @@ const AddKanjiPage = () => {
         <QuestionBox
             title = "Cadastrar kanji"
             children = {
-                <div style={{ width: '100%', overflow: 'auto', maxHeight: '520px' }}>
+                <div style={{ width: '100%' }}>
                     <InputField>
                         <Divisao>Kanji</Divisao>
                         <KanjiField>
@@ -91,10 +99,10 @@ const AddKanjiPage = () => {
                     <InputField>
                         <Divisao>Radicais</Divisao>
                         <Multiselect 
-                            options={radicals}
+                            options={formatedRadicals}
                             displayValue="radical"
-                            onSelect={setSelectedRadicals}
-                            onRemove={setSelectedRadicals}
+                            onSelect={(val) => selectedRadicalsIndex.push(val[val.length - 1].index)}
+                            onRemove={(_, removedValue) => selectedRadicalsIndex.splice(removedValue.index, 1)}
                             showArrow={true}
                             placeholder=""
                             emptyRecordMsg=""
@@ -135,7 +143,7 @@ const AddKanjiPage = () => {
             buttonFunction={registrarKanji}
             buttonText="Cadastrar"
         />
-    )
+    );
 }
 
 export default AddKanjiPage;

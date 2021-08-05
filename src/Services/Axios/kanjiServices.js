@@ -49,7 +49,7 @@ export const addNewRadical = async (shape, meaning, strokeCount) => {
             strokeCount
         });
         if (response.data.err === 'duplicated') {
-            alert('Radical ja cadastrado');
+            alert(`O radical ${shape} ja esta cadastrado`);
         } 
         return true;
     } catch (err) {

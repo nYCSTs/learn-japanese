@@ -6,10 +6,9 @@ import {
 } from '../../Constants/testStyles';
 import QuestionBox from '../../Components/QuestionBox';
 import { useProfileUser } from '../../Context/index';
-import { addTestCount } from '../../Services/Axios/userServices';
 
 const Test1Page = () => {
-    const { user, testCount, setTestCount } = useProfileUser();
+    const { user, testCount } = useProfileUser();
     const [kanji, setKanji] = useState(''); // Kanji da questao
     const [kanjis, setKanjis] = useState([]); // Lista de kanjis
     // Resposta
@@ -44,9 +43,8 @@ const Test1Page = () => {
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
         };
 
-
-        setTestCount(testCount + 1);
-        await addTestCount(user._id, testCount);
+        testCount++;
+        console.log(testCount);
         
         setOnyomiReading('');
         setKunyomiReading('');

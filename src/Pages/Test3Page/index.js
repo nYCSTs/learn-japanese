@@ -16,8 +16,6 @@ const Test2Page = () => {
 
     const verificarResposta = () => {
         const [correct, wrong] = generateTestResults(kunyomiAnswer, question?.kunyomi.map((r) => r.reading));
-        (correct);
-        (wrong);
         if (question?.kanji === kanjiAnswer.trim() && !wrong.length) {
             alert('Correto!');
         } else {
