@@ -39,15 +39,3 @@ export const createAccount = async (username, email, pass) => {
         return null;
     }
 }
-
-export const addTestCount = async (id) => {
-    try {
-        await APIUsers.put(`/add-count/${id}`, {
-            count: useProfileUser.testCount,
-        });
-        return true;
-    } catch (err) {
-        console.error(err);
-        return null;
-    }
-};

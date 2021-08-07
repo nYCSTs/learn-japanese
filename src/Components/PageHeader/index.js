@@ -6,7 +6,7 @@ import { APIUsers } from '../../Services/Axios/baseService';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 const PageHeader = () => {
-    const { setToken, user, testCount } = useProfileUser();
+    const { setToken, user } = useProfileUser();
 
     const logout = () => {
         try {
@@ -23,7 +23,6 @@ const PageHeader = () => {
             <HeaderTop>
                 <Content>
                     <Username href="/">{user.username}</Username>
-                    <P>Testes feitos na semana: {testCount}</P>
                 </Content>
             </HeaderTop>
             <Navbar expand="lg" variant="dark" style={{ padding: '6px', backgroundColor: '#1d439b' }} >

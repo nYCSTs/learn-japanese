@@ -5,10 +5,8 @@ import {
     P, Input, InputField,
 } from '../../Constants/testStyles';
 import QuestionBox from '../../Components/QuestionBox';
-import { useProfileUser } from '../../Context/index';
 
 const Test1Page = () => {
-    const { user, testCount } = useProfileUser();
     const [kanji, setKanji] = useState(''); // Kanji da questao
     const [kanjis, setKanjis] = useState([]); // Lista de kanjis
     // Resposta
@@ -26,8 +24,10 @@ const Test1Page = () => {
     }
 
     const verificarResposta = async () => {
-        const [onyomiCorrect, onyomiWrong] = generateTestResults(onyomiReading, onyomiReadingAnswer);
-        const [kunyomiCorrect, kunyomiWrong] = generateTestResults(kunyomiReading, kunyomiReadingAnswer);
+        // onyomi
+        const [onyomiCorrect, onyomiWrong] = generateTestResults(onyomiReading.split(','), onyomiReadingAnswer);
+        // kunyomi
+        const [kunyomiCorrect, kunyomiWrong] = generateTestResults(kunyomiReading.split(','), kunyomiReadingAnswer);
 
         if (!onyomiWrong.length && !kunyomiWrong.length && kanjiMeaningAnswer.includes(kanjiMeaning)) {
             kanjis.push(kanjis.shift());
@@ -43,9 +43,6 @@ const Test1Page = () => {
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
         };
 
-        testCount++;
-        console.log(testCount);
-        
         setOnyomiReading('');
         setKunyomiReading('');
         setKanjiMeaning('');

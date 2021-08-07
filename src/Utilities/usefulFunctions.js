@@ -13,12 +13,14 @@ const shuffleKanjiList = (array) => {
 const generateTestResults = (user, answer) => {
     const wrong = [];
     const correct = [];
+    console.log(user);
+    console.log(answer);
 
-    answer.map((val) => {
-        if (user === val) {
-            correct.push(val);
+    user.map((userAnswer) => {
+        if (answer.indexOf(userAnswer.trim()) !== -1) {
+            correct.push(userAnswer);
         } else {
-            wrong.push(val);
+            wrong.push(userAnswer);
         }
         return null;
     });

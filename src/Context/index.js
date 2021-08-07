@@ -7,7 +7,6 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
     const [token, setToken] = useState('');
     const [user, setUser] = useState('');
-    const [testCount, setTestCount] = useState();
 
     useEffect(() => {
         const storagedToken = localStorage.getItem('@App:token');
@@ -25,7 +24,6 @@ const UserProvider = ({ children }) => {
         if (token) {
             localStorage.setItem('@App:token', token);
             localStorage.setItem('@App:user', user);
-            setTestCount(user.testesSemanais)
         }
     }, [token, user]);
 
@@ -52,8 +50,6 @@ const UserProvider = ({ children }) => {
             user,
             setUser,
             handleLogin,
-            testCount,
-            setTestCount,
         }}
         >
         { children }
