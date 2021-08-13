@@ -30,7 +30,6 @@ const Test2Page = () => {
             kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
             alert(`Kanji: ${question.kanji}\n\nOnyomi: ${question.onyomi.join(', ')}\n\nKunyomi: ${question.kunyomi.map((r) => `${r.reading}${r.meaning[0] !== '' ? ` (${r.meaning})` : ""}`).join(', ')}\n\nSignificado: ${question.kanjiMeaning.join(', ')}`)
         }
-        console.log(kanjisList);
         setKanjiAnswer('');
         setOnyomiAnswer('');
         setKunyomiAnswer('');
