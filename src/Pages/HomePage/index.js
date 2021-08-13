@@ -13,32 +13,25 @@ const HomePage = () => {
                     />
                 </Col>
                 <Col lg={4} md={6} sm={12}>
-                <TrainingOptionBox 
-                    testName="Treino de KANJI e LEITURA (FACIL)"
-                    testDescription="Um significado é sorteado. A partir desse significado deve-se escolher, entre 5 cards, qual kanji e leituras que representam esse significado dado." 
-                    urlTeste="2"
-                />
+                    <TrainingOptionBox 
+                        testName="Treino de KANJI e LEITURA (FACIL)"
+                        testDescription="Um significado é sorteado. A partir desse significado deve-se escolher, entre 5 cards, qual kanji e leituras que representam esse significado dado." 
+                        urlTeste="2"
+                    />
                 </Col>
                 <Col lg={4} md={6} sm={12}>
-                <TrainingOptionBox 
-                    testName="Treino de KANJI e LEITURA (DIFICIL)" 
-                    testDescription="Um significado é sorteado. A partir desse significado é pedido o kanji e as leituras que satisfazem esse significado." 
-                    urlTeste="3"
-                />
+                    <TrainingOptionBox 
+                        testName="Treino de KANJI e LEITURA (DIFICIL)" 
+                        testDescription="Um significado é sorteado. A partir desse significado é pedido o kanji e as leituras que satisfazem esse significado." 
+                        urlTeste="3"
+                    />
                 </Col>
                 <Col lg={4} md={6} sm={12}>
-                <TrainingOptionBox 
-                    testName="Treino de KANJI e SIGNIFICADO"
-                    testDescription="São dadas as leituras (onyomi e kunyomi) e é pedido o kanji e o significado que satisfaz essas leituras." 
-                    urlTeste="4"
-                />
-                </Col>
-                <Col lg={4} md={6} sm={12}>
-                <TrainingOptionBox 
-                    testName="Treino de KANJI"
-                    testDescription="São dadas as leituras e os significados de um kanji, e é pedido qual kanji satisfaz as definições." 
-                    urlTeste="5" 
-                />
+                    <TrainingOptionBox 
+                        testName="Treino de KANJI"
+                        testDescription="São dadas as leituras (onyomi e kunyomi) de um kanji, além do seu significado, e é pedido o kanji." 
+                        urlTeste="4"
+                    />
                 </Col>
             </Row>
         </Container>

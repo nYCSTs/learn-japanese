@@ -12,6 +12,7 @@ export const Input = styled.input`
 export const P = styled.p`
     margin: 0;
     margin-right: 4px;
+    font-weight: bold;
 `;
 
 export const InputField = styled.div`

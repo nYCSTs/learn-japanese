@@ -34,12 +34,10 @@ const PageHeader = () => {
                         { user.role === 'admin' ? (
                             <NavDropdown title="Gerenciar" id="collasible-nav-dropdown">
                                 <NavDropdown.Item href="/add-kanji">Cadastrar Kanjis</NavDropdown.Item>
-                                <NavDropdown.Item href="/edit-kanji">Editar Kanjis</NavDropdown.Item>
-                                <NavDropdown.Item href="/remove-kanji">Remover Kanjis</NavDropdown.Item>
+                                <NavDropdown.Item href="/manage-kanjis">Gerenciar Kanjis</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/add-radical">Cadastrar Radicais</NavDropdown.Item>
-                                <NavDropdown.Item href="/add-radical">Editar Radicais</NavDropdown.Item>
-                                <NavDropdown.Item href="/add-radical">Remover Radicais</NavDropdown.Item>
+                                <NavDropdown.Item href="/manage-radicals">Gerenciar Radicais</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/manage-users">Usuarios</NavDropdown.Item>
                             </NavDropdown>

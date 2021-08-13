@@ -13,9 +13,10 @@ const shuffleKanjiList = (array) => {
 const generateTestResults = (user, answer) => {
     const wrong = [];
     const correct = [];
+
     console.log(user);
     console.log(answer);
-
+    
     user.map((userAnswer) => {
         if (answer.indexOf(userAnswer.trim()) !== -1) {
             correct.push(userAnswer);

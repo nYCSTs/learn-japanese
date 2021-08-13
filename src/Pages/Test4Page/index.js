@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import QuestionBox from '../../Components/QuestionBox';
-import { getKanjisList } from '../../Services/Axios/kanjiServices';
+import { getShuffledKanjiList } from '../../Services/Axios/kanjiServices';
 import {
     Main, TipField, Tip, Reading, Button, AnswerBox,
 } from './Style';
@@ -11,16 +11,20 @@ const Test4Page = () => {
     const [showAnswer, setShowAnswer] = useState(false);
     const [question, setQuestion] = useState();
 
-    const gerarPergunta = () => {
+    const gerarPergunta = (status) => {
+        if (status) {
+            kanjisList.push(kanjisList.shift());
+        } else {
+            kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
+        }
         setShowAnswer(false);
         setShowTip(false);
-        kanjisList.push(kanjisList.shift());
         setQuestion(kanjisList[0]);
     };
 
     useEffect(async () => {
         const getKanjisFromAPI = async () => {
-            await getKanjisList()
+            await getShuffledKanjiList()
             .then((response) => setKanjisList(response.data));
         };
         getKanjisFromAPI();
@@ -38,12 +42,20 @@ const Test4Page = () => {
                 children={
                     <Main>
                         <div>
-                            <Reading>Onyomi:</Reading>
+                            <div style={{ marginBottom: '12px'}}>
+                                <Reading>Onyomi:</Reading>
                                 <p style={{ margin: '0' }}>{question?.onyomi.join(', ')}</p>
-                            <Reading>Kunyomi:</Reading>
+                            </div>
+                            <div style={{ marginBottom: '12px'}}>
+                                <Reading>Kunyomi:</Reading>
                                 {question?.kunyomi.map((v) => {
                                     return <p style={{ margin: '0' }}>{`${v.reading}${v.meaning[0] !== '' ? ` (${v.meaning.join(', ')})` : ''}`}</p>
                                 })}
+                            </div>
+                            <div style={{ marginBottom: '12px'}}>
+                                <Reading>Significado:</Reading>
+                                <p>{question?.kanjiMeaning.join(', ')}</p>
+                            </div>
                         </div>
                         <TipField>
                             {showTip ? (
@@ -61,7 +73,11 @@ const Test4Page = () => {
             {showAnswer ? (
                 <AnswerBox>
                     <p style={{ fontSize: '26px', fontWeight: 'bold', whiteSpace: 'nowrap' }}>Resposta: {question?.kanji}</p>
-                    <Button onClick={() => gerarPergunta()}>Nova Pergunta</Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                    <Button onClick={() => gerarPergunta(1)}>Acertei</Button>
+                    <Button onClick={() => gerarPergunta(0)}>Errei</Button>
+                    </div>
+                    
                 </AnswerBox>
             ): null}
         </>

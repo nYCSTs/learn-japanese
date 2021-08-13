@@ -9,7 +9,8 @@ import AddKanjiPage from '../Pages/AddKanjiPage';
 import Test4Page from '../Pages/Test4Page';
 import AddRadicalPage from '../Pages/AddRadicalPage';
 import  HomePage from '../Pages/HomePage';
-import Test5Page from '../Pages/Test5Page';
+import ManageKanjiPage from '../Pages/ManageKanjiPage';
+import ManageRadicalPage from '../Pages/ManageRadicalPage';
 
 import { useProfileUser } from '../Context/index'; 
 
@@ -25,10 +26,11 @@ const UserRoutes = () => {
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
                         <Route path="/teste/4" exact component={Test4Page} />
-                        <Route path="/teste/5" exact component={Test5Page} />
                         
                         <Route path="/add-kanji" exact component={AddKanjiPage} />
                         <Route path="/add-radical" exact component={AddRadicalPage} />
+                        <Route path="/manage-kanjis" exact component={ManageKanjiPage} />
+                        <Route path="/manage-radicals" exact component={ManageRadicalPage} />
                     </Switch>
                 ) : (
                     <Switch>
@@ -37,7 +39,6 @@ const UserRoutes = () => {
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
                         <Route path="/teste/4" exact component={Test4Page} />
-                        <Route path="/teste/5" exact component={Test5Page} />
                     </Switch>
                 )
             }

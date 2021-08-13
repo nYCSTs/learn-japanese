@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getKanjisList } from '../../Services/Axios/kanjiServices';
+import { getShuffledKanjiList } from '../../Services/Axios/kanjiServices';
 import QuestionBox from '../../Components/QuestionBox';
 import { 
     P, Input, InputField
@@ -15,31 +15,34 @@ const Test2Page = () => {
     const [kunyomiAnswer, setKunyomiAnswer] = useState('');
 
     const verificarResposta = () => {
-        const [correct, wrong] = generateTestResults(kunyomiAnswer, question?.kunyomi.map((r) => r.reading));
-        
-        if (question?.kanji === kanjiAnswer.trim() && !wrong.length) {
-            alert('Correto!');
+        const [onyomiCorrect, onyomiWrong] = generateTestResults(onyomiAnswer.split(',').map((v) => v.trim()), question?.onyomi); // valida onyomi
+        const [kunyomiCorrect, kunyomiWrong] = generateTestResults(kunyomiAnswer.split(',').map((v) => v.trim()), question?.kunyomi.map((r) => r.reading)); // valida kunyomi
+
+        if (question?.kanji === kanjiAnswer.trim() && !kunyomiWrong.length && !onyomiWrong.length) {
+            kanjisList.push(kanjisList.shift());
+            alert('Completamento Correto!');
         } else {
-            if (correct.length) {
-                alert('Incompleto');
+            if (kunyomiCorrect.length && onyomiCorrect.length) {
+                alert('Parcialmente Correto');
             } else {
                 alert('Errado');
             }
-            alert(`Onyomi: ${question.onyomi.join(', ')}\n\nKunyomi: ${question.kunyomi.map((r) => `${r.reading}${r.meaning[0] !== '' ? ` (${r.meaning})` : ""}`).join(', ')}\n\nSignificado: ${question.kanjiMeaning.join(', ')}`)
+            kanjisList.splice(kanjisList.length / 2, 0, kanjisList.shift());
+            alert(`Kanji: ${question.kanji}\n\nOnyomi: ${question.onyomi.join(', ')}\n\nKunyomi: ${question.kunyomi.map((r) => `${r.reading}${r.meaning[0] !== '' ? ` (${r.meaning})` : ""}`).join(', ')}\n\nSignificado: ${question.kanjiMeaning.join(', ')}`)
         }
+        console.log(kanjisList);
         setKanjiAnswer('');
         setOnyomiAnswer('');
         setKunyomiAnswer('');
-        kanjisList.push(kanjisList.shift());
         setQuestion(kanjisList[0]);
     }
 
     useEffect(() => {
-        const getKanjisListFromAPI = async () => {
-            await getKanjisList()
+        const getShuffledKanjiListFromAPI = async () => {
+            await getShuffledKanjiList()
             .then((response) => setKanjisList(response.data));
         };
-        getKanjisListFromAPI();
+        getShuffledKanjiListFromAPI();
     }, []);
 
     useEffect(() => {

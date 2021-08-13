@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { generateTestResults } from '../../Utilities/usefulFunctions';
-import { getKanjisList } from '../../Services/Axios/kanjiServices';
+import { getShuffledKanjiList } from '../../Services/Axios/kanjiServices';
 import {
     P, Input, InputField,
 } from '../../Constants/testStyles';
@@ -18,8 +18,8 @@ const Test1Page = () => {
     const [kunyomiReading, setKunyomiReading] = useState(''); // Leitura kunyomi                - Usuario
     const [kanjiMeaning, setKanjiMeaning] = useState(''); // Significado do kanji               - Usuario
 
-    const getKanjisListFromAPI = async () => {
-        await getKanjisList()
+    const getShuffledKanjiListFromAPI = async () => {
+        await getShuffledKanjiList()
         .then((response) => setKanjis(response.data));
     }
 
@@ -34,12 +34,12 @@ const Test1Page = () => {
             alert("Completamente correta!");
         } else {
             if (onyomiCorrect.length && kunyomiCorrect.length && kanjiMeaningAnswer.includes(kanjiMeaning)) {
-                alert("Correta");
+                alert("Parcialmente Correto");
             } else {
                 alert("Errada");
                 
             };
-            alert(`Onyomi: ${onyomiReadingAnswer.join(', ')}\nKunyomi: ${kunyomiReadingAnswer.join(', ')}\nSignificado: ${kanjiMeaningAnswer.join(', ')}`)
+            alert(`Kanji: ${kanji}\n\nOnyomi: ${onyomiReadingAnswer.join(', ')}\n\nKunyomi: ${kunyomiReadingAnswer.join(', ')}\n\nSignificado: ${kanjiMeaningAnswer.join(', ')}`)
             kanjis.splice(kanjis.length / 2, 0, kanjis.shift());
         };
 
@@ -57,7 +57,7 @@ const Test1Page = () => {
     }
     
     useEffect(() => {
-        getKanjisListFromAPI();
+        getShuffledKanjiListFromAPI();
     }, []);
 
     useEffect(() => {

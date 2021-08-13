@@ -2,9 +2,18 @@ import { APIKanjis } from './baseService/index';
 
 // Kanjis
 
-export const getKanjisList = async () => {
+export const getKanjiList = async () => {
     try {
-        const response = await APIKanjis.get('/kanji/');
+        const response = await APIKanjis.get('/kanji');
+        return response;
+    } catch (err) {
+        return err;
+    }
+};
+
+export const getShuffledKanjiList = async () => {
+    try {
+        const response = await APIKanjis.get('/kanji/shuffle');
         return response;
     } catch (err) {
         return err;
@@ -30,6 +39,15 @@ export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi
     }
 };
 
+export const deleteKanji = async (id) => {
+    try {
+        const response = await APIKanjis.delete(`/kanji/delete/${id}`);
+        return response;
+    } catch (err) {
+        return err;
+    }
+}
+
 // Radicais
 
 export const getRadicalsList = async () => {
@@ -39,7 +57,7 @@ export const getRadicalsList = async () => {
     } catch (err) {
         return err;
     }
-}
+};
 
 export const addNewRadical = async (shape, meaning, strokeCount) => {
     try {
@@ -56,4 +74,14 @@ export const addNewRadical = async (shape, meaning, strokeCount) => {
         console.error(err);
         return false;
     }
-}
+};
+
+export const deleteRadical = async (id) => {
+    try {
+        const response = await APIKanjis.delete(`/radicals/delete/${id}`);
+        return response;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+};

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { getKanjisList } from '../../Services/Axios/kanjiServices';
+import { getShuffledKanjiList } from '../../Services/Axios/kanjiServices';
 import { shuffleKanjiList } from '../../Utilities/usefulFunctions';
 
 // Styles
@@ -12,8 +12,8 @@ const Test2Page = () => {
     const [showButton, setShowButton] = useState(true);
     const [kanjisList, setKanjisList] = useState([]);
 
-    const getKanjisListFromAPI = async () => {
-        await getKanjisList()
+    const getShuffledKanjiListFromAPI = async () => {
+        await getShuffledKanjiList()
         .then((response) => setKanjisList(response.data));
     };    
 
@@ -65,7 +65,7 @@ const Test2Page = () => {
     }
 
     useEffect(() => {
-        getKanjisListFromAPI();
+        getShuffledKanjiListFromAPI();
     }, []);
 
     useEffect(() => {

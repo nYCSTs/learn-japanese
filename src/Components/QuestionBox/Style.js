@@ -14,7 +14,7 @@ export const Main = styled.div`
 `;
 
 export const Title = styled.p`
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin: 0;
     text-align: center;
     font-weight: bold; 
