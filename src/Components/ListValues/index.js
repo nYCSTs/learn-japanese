@@ -6,7 +6,7 @@ import {
     Row, Kanji, ContentField, Buttons, Button, Readings, Reading, Values, P,
 } from './Style';
 
-const ListValues = ({ v, type, refreshFunction, deleteFunction }) => {
+const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
     const [show, setShow] = useState(false);
     const [action, setAction] = useState("");
 
@@ -26,7 +26,7 @@ const ListValues = ({ v, type, refreshFunction, deleteFunction }) => {
                     {type === 'kanji' ? (
                         <>
                             <ContentField>
-                                <Kanji>{v.kanji}</Kanji>
+                                <Kanji>{keyValue}</Kanji>
                                 <P>{v.kanjiMeaning.join(', ')}</P>
                             </ContentField>
                             <Readings>
@@ -43,7 +43,7 @@ const ListValues = ({ v, type, refreshFunction, deleteFunction }) => {
                     ) : (
                         <>
                             <ContentField>
-                                <Kanji>{v.shape}</Kanji>
+                                <Kanji>{keyValue}</Kanji>
                                 <P>({v.strokeCount})</P>
                             </ContentField>
                             <Readings>
@@ -59,7 +59,7 @@ const ListValues = ({ v, type, refreshFunction, deleteFunction }) => {
             </Row>
             <ManageModal 
                 action={action}
-                kanji={v.kanji}
+                confirmationText={`${type} ${keyValue}`}
                 modalState={show}
                 setModalState={setShow}
                 deleteFunction={removeElement}
@@ -69,19 +69,3 @@ const ListValues = ({ v, type, refreshFunction, deleteFunction }) => {
 }
 
 export default ListValues;
-
-/* 
-const objeto = [
-    {
-        leitura: "ola",
-    },
-    {
-        leitura: "isto",
-    },
-    {
-        leitura: "e um teste",
-    },
-]
-
-
-*/

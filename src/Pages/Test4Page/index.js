@@ -22,7 +22,7 @@ const Test4Page = () => {
         setQuestion(kanjisList[0]);
     };
 
-    useEffect(async () => {
+    useEffect(() => {
         const getKanjisFromAPI = async () => {
             await getShuffledKanjiList()
             .then((response) => setKanjisList(response.data));
@@ -48,8 +48,12 @@ const Test4Page = () => {
                             </div>
                             <div style={{ marginBottom: '12px'}}>
                                 <Reading>Kunyomi:</Reading>
-                                {question?.kunyomi.map((v) => {
-                                    return <p style={{ margin: '0' }}>{`${v.reading}${v.meaning[0] !== '' ? ` (${v.meaning.join(', ')})` : ''}`}</p>
+                                {question?.kunyomi.map((v, idx) => {
+                                    return (
+                                        <p key={idx} style={{ margin: '0' }}>
+                                            {`${v.reading}${v.meaning[0] !== '' ? ` (${v.meaning.join(', ')})` : ''}`}
+                                        </p>
+                                    );
                                 })}
                             </div>
                             <div style={{ marginBottom: '12px'}}>

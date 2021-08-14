@@ -1,5 +1,4 @@
 import { APIKanjis, APIUsers } from './baseService/index';
-import { useProfileUser } from '../../Context/index';
 
 export const loginUser = async (username, pass) => {
     try {

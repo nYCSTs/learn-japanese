@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 
-const ManageModal = ({ action, kanji, modalState, setModalState, deleteFunction }) => {
+const ManageModal = ({ action, confirmationText, modalState, setModalState, deleteFunction }) => {
     const handleClose = () => setModalState(false);
 
     return (
@@ -11,7 +10,7 @@ const ManageModal = ({ action, kanji, modalState, setModalState, deleteFunction 
                 <Modal.Title>Remover</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Confirmar remocao do kanji {kanji}?
+                Confirmar remocao do {confirmationText} ?
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>

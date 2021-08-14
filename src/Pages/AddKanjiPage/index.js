@@ -31,15 +31,12 @@ const AddKanjiPage = () => {
             meaning: ""
         });
         setKunyomiInputs([...kunyomiInputs,
-            <div idx={kunyomiInputs.length}>
-                <KanjiField>
-                    <P>Leitura:</P>
-                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
-                    <P>Significado: </P>
-                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
-                </KanjiField>
-                <Hr />
-            </div> 
+            <KanjiField key={kunyomiInputs.length}>
+                <P>Leitura:</P>
+                <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
+                <P>Significado: </P>
+                <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+            </KanjiField>
         ]);
     };
 
@@ -66,6 +63,7 @@ const AddKanjiPage = () => {
     const registrarKanji = async () => {
         selectedRadicalsIndex.map((ind) => {
             selectedRadicals.push(radicals[ind]);
+            return undefined;
         })
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
             setKanji('');

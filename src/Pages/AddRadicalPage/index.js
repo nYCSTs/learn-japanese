@@ -31,9 +31,11 @@ const AddRadicalPage = () => {
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginLeft: '12px' }}>
                             <P>Traços: </P>
                             <select value={radicalStrokeCount} style={{ height: 'min-content' }} onChange={(e) => setRadicalStrokeCount(e.target.value)}>
-                                {[...Array(18).keys()].slice(1).map((stroke) => {
+                                {[...Array(18).keys()].slice(1).map((stroke, idx) => {
                                     return (
-                                        <option>{stroke}</option>
+                                        <option key={idx}>
+                                            {stroke}
+                                        </option>
                                     )
                                 })}
                             </select>

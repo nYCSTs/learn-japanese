@@ -1,5 +1,5 @@
 import { 
-    P, HeaderTop, Content, Username,
+    HeaderTop, Content, Username,
 } from './Style';
 import { useProfileUser } from '../../Context/index';
 import { APIUsers } from '../../Services/Axios/baseService';

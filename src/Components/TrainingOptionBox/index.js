@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import {
-    TrainingCard, Name, Description, Button, ButtonDiv, Content,
+    TrainingCard, Name, Description, Button, ButtonDiv,
 } from './Style';
 
 const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
