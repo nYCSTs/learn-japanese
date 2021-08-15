@@ -16,5 +16,21 @@ export const Hr = styled.hr`
 
 export const H2 = styled.h2`
     text-decoration: underline;
-    padding: 12px;
+`;
+
+export const Button = styled.button`
+    height: 100%;
+    background-color: Transparent;
+    outline: none;
+    border: 1px solid black;
+    padding: 4px 12px;
+    border-radius: 12px;
+`;
+
+export const Top = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 18px;
+    padding: 16px 4px;
 `;

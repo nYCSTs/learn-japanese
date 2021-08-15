@@ -1,9 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import { 
-    KanjiField, AddButton, RemoveButton, Divisao, Buttons, Hr
+    KanjiField, AddButton, RemoveButton, Divisao, Buttons,
 } from './Style';
 import {
-    Input, InputField, P,
+    InputField, P, Input,
 } from '../../Constants/testStyles';
 import QuestionBox from '../../Components/QuestionBox';
 import { addNewKanji, getRadicalsList } from '../../Services/Axios/kanjiServices';
@@ -32,10 +32,14 @@ const AddKanjiPage = () => {
         });
         setKunyomiInputs([...kunyomiInputs,
             <KanjiField key={kunyomiInputs.length}>
-                <P>Leitura:</P>
-                <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
-                <P>Significado: </P>
-                <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+                <div style={{ display: 'flex' }}>
+                    <P>Leitura:</P>
+                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
+                </div>
+                <div style={{ display: 'flex' }}>
+                    <P>Significado: </P>
+                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+                </div>
             </KanjiField>
         ]);
     };
@@ -64,7 +68,7 @@ const AddKanjiPage = () => {
         selectedRadicalsIndex.map((ind) => {
             selectedRadicals.push(radicals[ind]);
             return undefined;
-        })
+        });
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
             setKanji('');
             setKunyomiInputs([]);
@@ -87,10 +91,14 @@ const AddKanjiPage = () => {
                     <InputField>
                         <Divisao>Kanji</Divisao>
                         <KanjiField>
-                            <P>Kanji:</P>
-                            <Input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
-                            <P>Significado:</P>
-                            <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
+                            <div style={{ display: 'flex' }}>
+                                <P>Kanji:</P>
+                                <Input value={kanji} onChange={(e) => setKanji(e.target.value)}/>
+                            </div>
+                            <div style={{ display: 'flex' }}>
+                                <P>Significado:</P>
+                                <Input value={kanjiMeaning} onChange={(e) => setKanjiMeaning(e.target.value)}/>
+                            </div>
                         </KanjiField>
                     </InputField>
 
@@ -122,7 +130,7 @@ const AddKanjiPage = () => {
 
                     <InputField>
                         <Divisao>Onyomi</Divisao>
-                        <P>Leituras: </P>
+                        <P>Leituras:</P>
                         <Input value={listaOnyomi} onChange={(e) => setListaOnyomi(e.target.value)} />
                     </InputField>
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Input } from '../../Constants/testStyles';
 
 export const Divisao = styled.p`
     font-size: 1.5rem;
@@ -10,6 +11,7 @@ export const Divisao = styled.p`
 export const KanjiField = styled.div`
     display: flex;
     margin: 8px 0;
+    justify-content: space-between;
 
     @media(max-width: 750px) {
         display: flex;
@@ -55,13 +57,4 @@ export const Buttons = styled.div`
         flex-direction: column;
         align-items: flex-start;
     }
-`;
-
-export const Hr = styled.hr`
-    display: none;
-
-    @media(max-width: 750px) {
-        display: block;
-    }
-
 `;
