@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 
-const ManageModal = ({ action, confirmationText, modalState, setModalState, deleteFunction }) => {
+const ManageModal = ({ confirmationText, modalState, setModalState, deleteFunction }) => {
     const handleClose = () => setModalState(false);
 
     return (
@@ -17,7 +17,7 @@ const ManageModal = ({ action, confirmationText, modalState, setModalState, dele
                     Fechar
                 </Button>
                 <Button variant="primary" onClick={deleteFunction}>
-                    {action === "Delete" ? "Deletar" : "Editar"}
+                    Deletar
                 </Button>
             </Modal.Footer>
         </Modal>

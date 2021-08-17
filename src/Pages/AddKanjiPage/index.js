@@ -117,9 +117,7 @@ const AddKanjiPage = () => {
                                     border: '1px solid black',
                                 },
                                 chips: {
-                                    margin: '0',
-                                    height: '22px',
-                                    borderRadius: '12px',
+                                    borderRadius: '8px',
                                 },
                                 inputField: {
                                     margin: '0',

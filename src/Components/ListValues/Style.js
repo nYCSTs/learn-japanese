@@ -40,8 +40,8 @@ export const P = styled.p`
 `;
 
 export const ContentField = styled.div`
-    width: 100px;
-    margin: 0 12px;
+    width: 140px;
+    margin: 0 26px;
     text-align: center;
 `;
 

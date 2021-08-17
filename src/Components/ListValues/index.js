@@ -8,7 +8,6 @@ import {
 
 const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
     const [show, setShow] = useState(false);
-    const [action, setAction] = useState("");
 
     const removeElement = async () => {
         const response = await deleteFunction(v._id)
@@ -53,12 +52,11 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                     )}
                 </Values>
                 <Buttons>
-                    <Button onClick={() => { setShow(true); setAction("Edit") }}><MdEdit /></Button>
-                    <Button onClick={() => { setShow(true); setAction("Delete") }}><BsFillTrashFill /></Button>
+                    <Button><MdEdit/></Button>
+                    <Button onClick={() => { setShow(true); }}><BsFillTrashFill /></Button>
                 </Buttons>
             </Row>
             <ManageModal 
-                action={action}
                 confirmationText={`${type} ${keyValue}`}
                 modalState={show}
                 setModalState={setShow}

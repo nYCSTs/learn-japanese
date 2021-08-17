@@ -7,8 +7,8 @@ const ListPages = ({ title, type, valuesList, refreshFunction, deleteFunction })
     return (
         <Main>
             <Top>
-                <H2>{title}</H2>
-                <a href={`/add-${type}`} style={{ color: 'black', textDecoration: 'none' }}><Button>Cadastrar {type}</Button></a>
+                <H2>{title} ({valuesList.length})</H2>
+                <a href={`/add-${type}`} style={{ color: 'black', textDecoration: 'none' }}><Button>Cadastrar {type}</Button></a> 
             </Top>
             {valuesList.map((v, idx) => {
                 return (
