@@ -53,9 +53,16 @@ export const Card = styled.div`
     background-color: #04AA6D;
     padding: 12px 6px;
     height: 320px;
+    overflow: auto;
     border: 1px solid black;
     border-radius: 18px;
     width: 20%;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     @media(max-width: 750px) {
         width: 100%;

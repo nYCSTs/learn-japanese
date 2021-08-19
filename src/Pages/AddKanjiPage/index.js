@@ -9,7 +9,6 @@ import QuestionBox from '../../Components/QuestionBox';
 import { addNewKanji, getRadicalsList } from '../../Services/Axios/kanjiServices';
 import Multiselect from 'multiselect-react-dropdown';
 
-
 const AddKanjiPage = () => {
     // kanjis
     const [kanji, setKanji] = useState('');
@@ -24,24 +23,29 @@ const AddKanjiPage = () => {
     //kunyomi
     const [kunyomiInputs, setKunyomiInputs] = useState([]);
     const [listaKunyomi, setListaKunyomi] = useState([]);
-    
+
+    console.log(listaKunyomi);
+
     const gerarInputs = () => {
         listaKunyomi.push({
             reading: "",
             meaning: ""
         });
-        setKunyomiInputs([...kunyomiInputs,
+
+        const input = (
             <KanjiField key={kunyomiInputs.length}>
                 <div style={{ display: 'flex' }}>
                     <P>Leitura:</P>
-                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].reading = e.target.value} />
+                    <Input onChange={(e) => listaKunyomi[kunyomiInputs.length].reading = e.target.value} />
                 </div>
                 <div style={{ display: 'flex' }}>
                     <P>Significado: </P>
-                    <Input onChange={(e) => listaKunyomi[listaKunyomi.length - 1].meaning = e.target.value} />
+                    <Input onChange={(e) => listaKunyomi[kunyomiInputs.length].meaning = e.target.value} />
                 </div>
             </KanjiField>
-        ]);
+        );
+
+        setKunyomiInputs([...kunyomiInputs, input]);
     };
 
     const removerRadical = () => {
@@ -70,10 +74,11 @@ const AddKanjiPage = () => {
             return undefined;
         });
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
-            setKanji('');
-            setKunyomiInputs([]);
-            setKanjiMeaning('');
-            setListaOnyomi('');
+            setKanji('');           // limpa input do kanji
+            setKunyomiInputs([]);   // limpa lista radicais
+            setKanjiMeaning('');    // limpa significado kanji
+            setListaOnyomi('');     // limpa lista onyomi
+            setListaKunyomi([]);    // limpa lista kunyomi
         }
         setSelectedRadicals([]);
         setSelectedRadicalsIndex([]);
@@ -106,6 +111,7 @@ const AddKanjiPage = () => {
                         <Divisao>Radicais</Divisao>
                         <Multiselect 
                             options={formatedRadicals}
+                            selectedValues={selectedRadicals}
                             displayValue="radical"
                             onSelect={(val) => selectedRadicalsIndex.push(val[val.length - 1].index)}
                             onRemove={(_, removedValue) => selectedRadicalsIndex.splice(removedValue.index, 1)}
