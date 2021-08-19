@@ -11,6 +11,7 @@ import AddRadicalPage from '../Pages/AddRadicalPage';
 import  HomePage from '../Pages/HomePage';
 import ManageKanjiPage from '../Pages/ManageKanjiPage';
 import ManageRadicalPage from '../Pages/ManageRadicalPage';
+import EditRadicalPage from '../Pages/EditRadicalPage';
 
 import { useProfileUser } from '../Context/index'; 
 
@@ -31,6 +32,7 @@ const UserRoutes = () => {
                         <Route path="/add-radical" exact component={AddRadicalPage} />
                         <Route path="/manage-kanjis" exact component={ManageKanjiPage} />
                         <Route path="/manage-radicals" exact component={ManageRadicalPage} />
+                        <Route path="/edit-radical/:id" exact component={EditRadicalPage} />
                     </Switch>
                 ) : (
                     <Switch>

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { MdEdit } from 'react-icons/md';
+import { useHistory } from 'react-router';
 import ManageModal from '../ManageModal';
 import {
     Row, Kanji, ContentField, Buttons, Button, Readings, Reading, Values, P,
 } from './Style';
 
 const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
+    const history = useHistory();
     const [show, setShow] = useState(false);
 
     const removeElement = async () => {
@@ -52,12 +54,13 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                     )}
                 </Values>
                 <Buttons>
-                    <Button><MdEdit/></Button>
+                    <Button onClick={() => history.push(`/edit-radical/${v._id}`)}><MdEdit/></Button>
                     <Button onClick={() => { setShow(true); }}><BsFillTrashFill /></Button>
                 </Buttons>
             </Row>
             <ManageModal 
-                confirmationText={`${type} ${keyValue}`}
+                type={type}
+                removedValue={keyValue}
                 modalState={show}
                 setModalState={setShow}
                 deleteFunction={removeElement}

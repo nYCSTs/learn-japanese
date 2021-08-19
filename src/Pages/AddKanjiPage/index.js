@@ -24,8 +24,6 @@ const AddKanjiPage = () => {
     const [kunyomiInputs, setKunyomiInputs] = useState([]);
     const [listaKunyomi, setListaKunyomi] = useState([]);
 
-    console.log(listaKunyomi);
-
     const gerarInputs = () => {
         listaKunyomi.push({
             reading: "",

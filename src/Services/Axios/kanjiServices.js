@@ -44,11 +44,22 @@ export const deleteKanji = async (id) => {
         const response = await APIKanjis.delete(`/kanji/delete/${id}`);
         return response;
     } catch (err) {
+        console.error(err);
         return err;
     }
 }
 
 // Radicais
+
+export const getRadicalByID = async (id) => {
+    try {
+        const response = await APIKanjis.get(`/radical/${id}`);
+        return response;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
 
 export const getRadicalsList = async () => {
     try {
@@ -75,6 +86,20 @@ export const addNewRadical = async (shape, meaning, strokeCount) => {
         return false;
     }
 };
+
+export const updateRadical = async (id, shape, meaning, strokeCount) => {
+    try {
+        const response = await APIKanjis.put(`/radicals/update/${id}`, {
+            shape,
+            meaning,
+            strokeCount,
+        })
+        return response;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
 
 export const deleteRadical = async (id) => {
     try {
