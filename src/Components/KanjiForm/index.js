@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import { 
     KanjiField, AddButton, RemoveButton, Divisao, Buttons,
 } from './Style';
@@ -11,11 +11,10 @@ import { getRadicalsList } from '../../Services/Axios/kanjiServices';
 
 const KanjiForm = ({ 
     kanji, setKanji, kanjiMeaning, setKanjiMeaning, selectedRadicalsIndex, 
-    listaOnyomi, setListaOnyomi, kunyomiInputs, setKunyomiInputs,
-    submitFunction, operationType,  selectedRadicals, setRadicals, listaKunyomi, setListaKunyomi,
+    previouslySelectedRadicals, listaOnyomi, setListaOnyomi, kunyomiInputs, 
+    setKunyomiInputs, formatedRadicals, submitFunction, operationType, listaKunyomi, 
+    setListaKunyomi, setFormatedRadicals, setRadicals,
 }) => {
-    const [formatedRadicals, setFormatedRadicals] = useState();
-
     const gerarInput = () => {
         listaKunyomi.push({
             reading: "",
@@ -85,10 +84,15 @@ const KanjiForm = ({
                         <Divisao>Radicais</Divisao>
                         <Multiselect 
                             options={formatedRadicals}
-                            selectedValues={selectedRadicals}
+                            selectedValues={previouslySelectedRadicals}
                             displayValue="radical"
-                            onSelect={(val) => selectedRadicalsIndex.push(val[val.length - 1].index)}
-                            onRemove={(_, removedValue) => selectedRadicalsIndex.splice(removedValue.index, 1)}
+                            onSelect={(_, value) => {
+                                selectedRadicalsIndex.push(value.index);
+                            }}
+                            onRemove={(_, value) => {
+                                formatedRadicals.push(value);
+                                selectedRadicalsIndex.splice(selectedRadicalsIndex.indexOf(value.index), 1);
+                            }}
                             showArrow={true}
                             placeholder=""
                             emptyRecordMsg=""
@@ -125,7 +129,7 @@ const KanjiForm = ({
                 </div>
             }        
             buttonFunction={submitFunction}
-            buttonText="Cadastrar"
+            buttonText={operationType}
         />
     );
 }

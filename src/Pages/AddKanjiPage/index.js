@@ -9,7 +9,7 @@ const AddKanjiPage = () => {
     // radicais
     const [radicals, setRadicals] = useState([]); // radicais no formato original
     const [selectedRadicals, setSelectedRadicals] = useState([]); // radicais selecionados
-    // const [formatedRadicals, setFormatedRadicals] = useState([]); // radicais formatados
+    const [formatedRadicals, setFormatedRadicals] = useState([]); // radicais formatados
     const [selectedRadicalsIndex, setSelectedRadicalsIndex] = useState([]); // index dos radicais escolhidos
     // onyomi
     const [listaOnyomi, setListaOnyomi] = useState('');
@@ -40,7 +40,7 @@ const AddKanjiPage = () => {
             setKanji={setKanji}
             kanjiMeaning={kanjiMeaning}
             setKanjiMeaning={setKanjiMeaning}
-            setRadicals={setRadicals}
+            formatedRadicals={formatedRadicals}
             selectedRadicalsIndex={selectedRadicalsIndex}
             listaOnyomi={listaOnyomi}
             setListaOnyomi={setListaOnyomi}
@@ -49,7 +49,9 @@ const AddKanjiPage = () => {
             kunyomiInputs={kunyomiInputs}
             setKunyomiInputs={setKunyomiInputs}
             submitFunction={registrarKanji}
-            selectedRadicals={[]}
+            previouslySelectedRadicals={[]}
+            setRadicals={setRadicals}
+            setFormatedRadicals={setFormatedRadicals}
         />
     );
 }

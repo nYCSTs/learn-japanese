@@ -47,3 +47,7 @@ export const ContentField = styled.div`
 
 export const Kanji = styled.h1`
 `;
+
+export const Radicals = styled.div`
+    
+`;
