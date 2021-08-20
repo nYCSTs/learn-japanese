@@ -54,7 +54,7 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                     )}
                 </Values>
                 <Buttons>
-                    <Button onClick={() => history.push(`/edit-radical/${v._id}`)}><MdEdit/></Button>
+                    <Button onClick={() => {type === 'kanji' ? history.push(`/edit-kanji/${v._id}`) : history.push(`/edit-radical/${v._id}`)}}><MdEdit/></Button>
                     <Button onClick={() => { setShow(true); }}><BsFillTrashFill /></Button>
                 </Buttons>
             </Row>

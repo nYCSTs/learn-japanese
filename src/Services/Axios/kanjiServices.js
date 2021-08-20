@@ -1,3 +1,4 @@
+import KanjiForm from '../../Components/KanjiForm';
 import { APIKanjis } from './baseService/index';
 
 // Kanjis
@@ -20,6 +21,16 @@ export const getShuffledKanjiList = async () => {
     }
 };
 
+export const getKanjiByID = async (id) => {
+    try {
+        const response = await APIKanjis.get(`/kanji/${id}`);
+        return response;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
+
 export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi) => {
     try {
         const response = await APIKanjis.post('/kanji/add', {
@@ -38,6 +49,22 @@ export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi
         return false;
     }
 };
+
+export const updateKanji = async (id, kanji, kanjiMeaning, radicals, onyomi, kunyomi) => {
+    try {
+        const response = await APIKanjis.put(`/kanji/update/${id}`, {
+            kanji, 
+            kanjiMeaning, 
+            radicals,
+            onyomi,
+            kunyomi,
+        });
+        return response;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
 
 export const deleteKanji = async (id) => {
     try {
