@@ -43,7 +43,7 @@ export const addNewKanji = async (kanji, kanjiMeaning, radicals, onyomi, kunyomi
         if (response.data.err === 'duplicated') {
             alert('Kanji ja cadastrado');
         }
-        return true;
+        return response;
     } catch (err) {
         console.error(err);
         return false;

@@ -10,10 +10,10 @@ import Multiselect from 'multiselect-react-dropdown';
 import { getRadicalsList } from '../../Services/Axios/kanjiServices';
 
 const KanjiForm = ({ 
-    kanji, setKanji, kanjiMeaning, setKanjiMeaning, selectedRadicalsIndex, 
+    kanji, setKanji, kanjiMeaning, setKanjiMeaning, 
     previouslySelectedRadicals, listaOnyomi, setListaOnyomi, kunyomiInputs, 
     setKunyomiInputs, formatedRadicals, submitFunction, operationType, listaKunyomi, 
-    setListaKunyomi, setFormatedRadicals, setRadicals,
+    setListaKunyomi, setFormatedRadicals, selectedRadicals, previouslyRadicalsCount
 }) => {
     const gerarInput = () => {
         listaKunyomi.push({
@@ -50,11 +50,10 @@ const KanjiForm = ({
             return (
                 { 
                     radical: `${r.shape} - ${r.meaning} (${r.strokeCount})`,
-                    index: idx
+                    radicalID: r._id,
                 }
             );
         }));
-        setRadicals(response);
     }
 
     useEffect(() => {
@@ -79,19 +78,19 @@ const KanjiForm = ({
                             </div>
                         </KanjiField>
                     </InputField>
-
                     <InputField>
                         <Divisao>Radicais</Divisao>
-                        <Multiselect 
+                        {previouslySelectedRadicals.length === previouslyRadicalsCount ? (
+                            <Multiselect 
                             options={formatedRadicals}
                             selectedValues={previouslySelectedRadicals}
                             displayValue="radical"
                             onSelect={(_, value) => {
-                                selectedRadicalsIndex.push(value.index);
+                                selectedRadicals.push(value?.radicalID);
                             }}
                             onRemove={(_, value) => {
                                 formatedRadicals.push(value);
-                                selectedRadicalsIndex.splice(selectedRadicalsIndex.indexOf(value.index), 1);
+                                selectedRadicals.splice(selectedRadicals.indexOf(value.radicalID), 1);
                             }}
                             showArrow={true}
                             placeholder=""
@@ -108,8 +107,8 @@ const KanjiForm = ({
                                 },
                             }}
                         />
+                        ) : null}
                     </InputField>
-
                     <InputField>
                         <Divisao>Onyomi</Divisao>
                         <P>Leituras:</P>

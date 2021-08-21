@@ -10,7 +10,6 @@ const AddKanjiPage = () => {
     const [radicals, setRadicals] = useState([]); // radicais no formato original
     const [selectedRadicals, setSelectedRadicals] = useState([]); // radicais selecionados
     const [formatedRadicals, setFormatedRadicals] = useState([]); // radicais formatados
-    const [selectedRadicalsIndex, setSelectedRadicalsIndex] = useState([]); // index dos radicais escolhidos
     // onyomi
     const [listaOnyomi, setListaOnyomi] = useState('');
     //kunyomi
@@ -18,11 +17,15 @@ const AddKanjiPage = () => {
     const [listaKunyomi, setListaKunyomi] = useState([]);
 
     const registrarKanji = async () => {
-        selectedRadicalsIndex.map((ind) => {
-            selectedRadicals.push(radicals[ind]);
-            return undefined;
-        });
-        if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
+        const r = await addNewKanji(
+            kanji,
+            kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()),
+            selectedRadicals,
+            listaOnyomi.split(',').map((word) => word.trim()),
+            listaKunyomi
+        ).then((r) => r);
+
+        if (r.status === 200) {
             setKanji('');           // limpa input do kanji
             setKunyomiInputs([]);   // limpa lista radicais
             setKanjiMeaning('');    // limpa significado kanji
@@ -30,7 +33,6 @@ const AddKanjiPage = () => {
             setListaKunyomi([]);    // limpa lista kunyomi
         }
         setSelectedRadicals([]);
-        setSelectedRadicalsIndex([]);
     };
 
     return (
@@ -41,7 +43,7 @@ const AddKanjiPage = () => {
             kanjiMeaning={kanjiMeaning}
             setKanjiMeaning={setKanjiMeaning}
             formatedRadicals={formatedRadicals}
-            selectedRadicalsIndex={selectedRadicalsIndex}
+            selectedRadicals={selectedRadicals}
             listaOnyomi={listaOnyomi}
             setListaOnyomi={setListaOnyomi}
             listaKunyomi={listaKunyomi}
@@ -52,6 +54,7 @@ const AddKanjiPage = () => {
             previouslySelectedRadicals={[]}
             setRadicals={setRadicals}
             setFormatedRadicals={setFormatedRadicals}
+            previouslyRadicalsCount={0}
         />
     );
 }

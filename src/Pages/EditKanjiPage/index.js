@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from "react-router";
 import KanjiForm from "../../Components/KanjiForm";
-import { getKanjiByID, updateKanji, getRadicalsList } from '../../Services/Axios/kanjiServices';
+import { getKanjiByID, updateKanji, getRadicalByID, getRadicalsList } from '../../Services/Axios/kanjiServices';
 import { 
     KanjiField,
 } from '../../Components/KanjiForm/Style';
@@ -13,8 +13,8 @@ const EditKanjiPage = () => {
     const { id } = useParams();
     const history = useHistory();
 
+    const [previouslyRadicalsCount, setPreviouslyRadicalsCount] = useState();
     const [previouslySelectedRadicals, setPreviouslySelectedRadicals] = useState([]);
-    const [selectedRadicalsIndex, setSelectedRadicalsIndex] = useState([]);
     const [kanji, setKanji] = useState();
     const [kunyomiInputs, setKunyomiInputs] = useState([]);
     const [kanjiMeaning, setKanjiMeaning] = useState();
@@ -47,84 +47,65 @@ const EditKanjiPage = () => {
         });
     };
 
-    const atualizarKanji = async () => {
-        selectedRadicalsIndex.map((selectedIdx) => {
-            selectedRadicals.push(radicals[selectedIdx]);
-            return undefined;
-        });
-        const response = await updateKanji(
-            id,
-            kanji,
+    const fillRadicals = (radicals) => {
+        radicals.map(async (r, idx) => {
+            await getRadicalByID(r)
+            .then((r) => {
+                previouslySelectedRadicals.push({
+                    radical: `${r.data.shape} - ${r.data.meaning} (${r.data.strokeCount})`,
+                    radicalID: r.data._id,
+                })
+                setSelectedRadicals([...selectedRadicals, r.data._id])
+            });
+        }); 
+    };
+
+    const updateKanji = async () => {
+        const r = await updateKanji(
+            id, 
+            kanji, 
             kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()),
-            selectedRadicals, 
+            selectedRadicals,
             listaOnyomi.split(',').map((word) => word.trim()),
             listaKunyomi
-        ).then((response) => response);
-        if (response.status === 200) {
-            alert("Atualizacao feita com sucesso!");
-            history.push('/manage-kanjis')
-        } else {
-            alert("Ocorreu um erro.");
-            console.error(response);
-        }
-    };
+        ).then((r) => r);
+        console.log(r);
+    }
 
-    const fillSelectedList = (radicalsList) => {
-        radicalsList.map((r) => r.shape).map((sr) => {
-            radicals.some((r, idx) => {
-                if (r.shape === sr) {
-                    formatedRadicals.splice(idx, 1);        // remove da lista de radicais formatados
-                    selectedRadicalsIndex.push(idx);        // index dos radicais selecionados
-                    previouslySelectedRadicals.push(r);     // radicais antigos
-                    return;
-                };
-            });
+    useEffect(async() => {
+        await getKanjiByID(id)
+        .then((r) => {
+            setPreviouslyRadicalsCount(r.data.radicals.length);
+            setKanji(r.data.kanji);
+            setKanjiMeaning(r.data.kanjiMeaning);
+            gerarInputs(r.data.kunyomi);
+            setListaOnyomi(r.data.onyomi);
+            fillRadicals(r.data.radicals);
         });
-        setPreviouslySelectedRadicals(previouslySelectedRadicals.map((r, idx) => {
-            return (
-                { 
-                    radical: `${r.shape} - ${r.meaning} (${r.strokeCount})`,
-                    index: selectedRadicalsIndex[idx]
-                }
-            );
-        }));
-    };
-
-    useEffect(async () => {
-        if (radicals.length) {
-            await getKanjiByID(id)
-            .then((response) => {
-                setKanji(response.data.kanji);
-                setKanjiMeaning(response.data.kanjiMeaning.join(', '));
-                setListaOnyomi(response.data.onyomi.join(', '))
-                gerarInputs(response.data.kunyomi);
-                fillSelectedList(response.data.radicals);
-            });
-        } 
-    }, [radicals]);
+    }, []);
 
     return (
         <KanjiForm 
             operationType="Editar"
-            kanji={kanji}
-            setKanji={setKanji}
-            kanjiMeaning={kanjiMeaning}
-            setKanjiMeaning={setKanjiMeaning}
-            radicals={radicals}
-            setRadicals={setRadicals}
-            selectedRadicalsIndex={selectedRadicalsIndex}
+            kanji={kanji} //ok
+            setKanji={setKanji} //ok
+            kanjiMeaning={kanjiMeaning}  //ok
+            setKanjiMeaning={setKanjiMeaning}  //ok
+            radicals={radicals}  //ok
             selectedRadicals={selectedRadicals}
             listaOnyomi={listaOnyomi}
             setListaOnyomi={setListaOnyomi}
             listaKunyomi={listaKunyomi}
+            submitFunction={updateKanji}
             setListaKunyomi={setListaKunyomi}
             kunyomiInputs={kunyomiInputs}
             setKunyomiInputs={setKunyomiInputs}
-            submitFunction={atualizarKanji}
             formatedRadicals={formatedRadicals}
             previouslySelectedRadicals={previouslySelectedRadicals}
             setRadicals={setRadicals}
             setFormatedRadicals={setFormatedRadicals}
+            selectedRadicals={selectedRadicals}
+            previouslyRadicalsCount={previouslyRadicalsCount}
         />
     );
 };

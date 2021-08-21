@@ -4,7 +4,7 @@ import { MdEdit } from 'react-icons/md';
 import { useHistory } from 'react-router';
 import ManageModal from '../ManageModal';
 import {
-    Row, Kanji, ContentField, Buttons, Button, Readings, Reading, Values, P, Radicals,
+    Row, Kanji, ContentField, Buttons, Button, Readings, Reading, Values, P,
 } from './Style';
 
 const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
@@ -39,10 +39,6 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                                     <P style={{ fontWeight: 'bold', fontSize: '18px'  }}>Kunyomi:</P>
                                     <P>{v?.kunyomi.length ? v?.kunyomi.map((v) => v.reading).join(', ') : "---"}</P>
                                 </Reading>
-                                <Reading>
-                                    <P style={{ fontWeight: 'bold', fontSize: '18px'  }}>Radicais:</P>
-                                    <P>{v.radicals.map((r) => r.shape).join(', ')}</P>
-                                </Reading>
                             </Readings>
                             
                         </>
@@ -53,6 +49,7 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                                 <P>({v.strokeCount})</P>
                             </ContentField>
                             <Readings>
+                                <P style={{ fontWeight: 'bold', fontSize: '18px'  }}>Significado:</P>
                                 <P>{v.meaning}</P>
                             </Readings>
                         </>
@@ -71,7 +68,7 @@ const ListValues = ({ keyValue, v, type, refreshFunction, deleteFunction }) => {
                 deleteFunction={removeElement}
             />
         </>
-    )
+    );
 }
 
 export default ListValues;
