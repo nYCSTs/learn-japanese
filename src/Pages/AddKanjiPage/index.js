@@ -65,10 +65,10 @@ const AddKanjiPage = () => {
         }));
         setRadicals(response);
     }
-
+    
     const registrarKanji = async () => {
         selectedRadicalsIndex.map((ind) => {
-            selectedRadicals.push(radicals[ind]);
+            selectedRadicals.push(radicals[ind]._id);
             return undefined;
         });
         if (await addNewKanji(kanji, kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()), selectedRadicals, listaOnyomi.split(',').map((word) => word.trim()), listaKunyomi)) {
