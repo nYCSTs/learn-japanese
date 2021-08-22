@@ -61,7 +61,7 @@ const EditKanjiPage = () => {
     };
 
     const updateKanji = async () => {
-        const r = await updateKanji(
+        await updateKanji(
             id, 
             kanji, 
             kanjiMeaning.normalize("NFD").replace(/[\u0300-\u036f]/g, "").split(',').map((word) => word.trim()),
@@ -69,7 +69,6 @@ const EditKanjiPage = () => {
             listaOnyomi.split(',').map((word) => word.trim()),
             listaKunyomi
         ).then((r) => r);
-        console.log(r);
     }
 
     useEffect(async() => {
@@ -77,9 +76,9 @@ const EditKanjiPage = () => {
         .then((r) => {
             setPreviouslyRadicalsCount(r.data.radicals.length);
             setKanji(r.data.kanji);
-            setKanjiMeaning(r.data.kanjiMeaning);
+            setKanjiMeaning(r.data.kanjiMeaning.join(', '));
             gerarInputs(r.data.kunyomi);
-            setListaOnyomi(r.data.onyomi);
+            setListaOnyomi(r.data.onyomi.join(', '));
             fillRadicals(r.data.radicals);
         });
     }, []);

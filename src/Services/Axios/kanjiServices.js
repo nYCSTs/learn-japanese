@@ -88,6 +88,18 @@ export const getRadicalByID = async (id) => {
     }
 }
 
+export const getRadicalsByIDs = async (radicalsList) => {
+    try {
+        const response = await APIKanjis.post('/radicals/id', { 
+            radicalsList
+        });
+        return response;
+    } catch (err) {
+        console.error(err);
+        return err;
+    }
+}
+
 export const getRadicalsList = async () => {
     try {
         const response = await APIKanjis.get('/radicals');
