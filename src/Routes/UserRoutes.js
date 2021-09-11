@@ -15,6 +15,7 @@ import EditRadicalPage from '../Pages/EditRadicalPage';
 
 import { useProfileUser } from '../Context/index'; 
 import EditKanjiPage from '../Pages/EditKanjiPage';
+import Chapters from '../Pages/Chapters';
 
 const UserRoutes = () => {
     const { user } = useProfileUser();
@@ -23,18 +24,22 @@ const UserRoutes = () => {
         <>
             {user.role === 'admin' ? (
                     <Switch>
+                        {/* Testes */}
                         <Route path="/" exact component={HomePage} />
                         <Route path="/teste/1" exact component={Test1Page} />
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
                         <Route path="/teste/4" exact component={Test4Page} />
-                        
+                        {/* Kanji */}
                         <Route path="/add-kanji" exact component={AddKanjiPage} />
-                        <Route path="/add-radical" exact component={AddRadicalPage} />
+                        <Route path="/edit-kanji/:id" exact component={EditKanjiPage} />
                         <Route path="/manage-kanjis" exact component={ManageKanjiPage} />
+                        {/* Radical */}
+                        <Route path="/add-radical" exact component={AddRadicalPage} />
                         <Route path="/manage-radicals" exact component={ManageRadicalPage} />
                         <Route path="/edit-radical/:id" exact component={EditRadicalPage} />
-                        <Route path="/edit-kanji/:id" exact component={EditKanjiPage} />
+                        {/* Gramatica*/}
+                        <Route path="/grammar" exact component={Chapters} />
                     </Switch>
                 ) : (
                     <Switch>
@@ -43,6 +48,7 @@ const UserRoutes = () => {
                         <Route path="/teste/2" exact component={Test2Page} />
                         <Route path="/teste/3" exact component={Test3Page} />
                         <Route path="/teste/4" exact component={Test4Page} />
+                        <Route path="/grammar" exact component={Chapters} />
                     </Switch>
                 )
             }
