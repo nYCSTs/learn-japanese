@@ -17,11 +17,9 @@ export const Button = styled.button`
     background-repeat: no-repeat;
     border: 1px solid black;
     border-radius: 100%;
-    height: min-content;
-    cursor:pointer;
-    overflow: hidden;
+    height: 24px;
+    cursor: pointer;
     outline:none;
-    align-items: center;
 `;
 
 export const Readings = styled.div`

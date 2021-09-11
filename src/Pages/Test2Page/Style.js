@@ -59,6 +59,7 @@ export const Card = styled.div`
     width: 20%;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    cursor: pointer;
 
     &::-webkit-scrollbar {
         display: none;

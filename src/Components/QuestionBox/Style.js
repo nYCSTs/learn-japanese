@@ -1,20 +1,21 @@
 import styled from 'styled-components';
+import { colors } from '../../Constants/colors';
 
 export const Main = styled.div`
     width: ${(props) => `${props.width}`};
     margin: 50px auto;
-    background-color: #8ea1cd;
+    background-color: ${colors.background};
     padding: 18px;
     border-radius: 12px;
     border: 1.5px solid black;
 
     @media(max-width: 750px) {
-        width: 80%;
+        width: 95%;
     }
 `;
 
 export const Title = styled.p`
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 0;
     text-align: center;
     font-weight: bold; 
@@ -35,6 +36,7 @@ export const Button = styled.button`
     padding: 6px 12px;
     background-color: transparent;
     font-weight: bold;
+    cursor: pointer;
 `;
 
 export const KanjiLink = styled.a`
