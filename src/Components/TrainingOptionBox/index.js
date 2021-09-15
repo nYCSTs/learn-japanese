@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import {
-  TrainingCard, Name, Description, Button, ButtonDiv, TestInfo,
+  TrainingCard, Name, Description, Button, ButtonDiv,
 } from './Style';
 
 const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
@@ -12,14 +12,14 @@ const TrainingOptionBox = ({ testName, testDescription, urlTeste }) => {
 
   return (
     <TrainingCard>
-      <TestInfo>
+      <div>
         <Name>
           {testName}
         </Name>
         <Description>
           {testDescription}
         </Description>
-      </TestInfo>
+      </div>
       <ButtonDiv>
         <Button onClick={() => testRedirect()}>Iniciar</Button>
       </ButtonDiv>
