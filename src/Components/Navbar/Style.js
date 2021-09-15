@@ -1,20 +1,14 @@
 import styled from 'styled-components';
 
 export const Nav = styled.div`
-  background-color: #FEA82F;
-  padding: 9px 18px;
+  background-color: rgb(248, 249, 249);
+  padding: 5px 12px 12px 10px;
   margin-bottom: 24px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-
-  @media(max-width: 750px) {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-  }
 `;
 
 export const NavContent = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 `;
 
@@ -26,7 +20,9 @@ export const NavLeft = styled.div`
 
 export const NavRight = styled.div`
   display: flex;
-  align-items: flex-end;
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 4px;
 `;
 
 export const Logo = styled.a`
@@ -47,7 +43,8 @@ export const Br = styled.br`
 
 export const NavbarItems = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const A = styled.a`
@@ -78,37 +75,11 @@ export const Hr = styled.hr`
 export const Button = styled.button`
   background-color: Transparent;
   border: 1px solid black;
+  padding: 2px 8px;
   cursor: pointer;
+  margin-right: 12px;
+  border-radius: 6px;
 `;
 
-// export const Username = styled.a`
-//     display: flex;
-//     align-items: center;
-//     font-size: 1.5rem;
-//     font-weight: bold;
-//     margin: 0;
-//     color: black;
-//     text-decoration: none;
-// `;
-
-// export const P = styled.p`
-//     display: inline-block;
-//     font-weight: bold;
-//     margin: 0;
-//     display: flex;
-//     align-items: center;
-
-//     @media(max-width: 990px) {
-//         width: 100px;
-//     }
-// `;
-
-// export const HeaderTop = styled.div`
-//     background-color: #e1e7f5;
-// `;
-
-// export const Content = styled.div`
-//     display: flex;
-//     margin: 0 12px;
-//     justify-content: space-between;
-// `;
+export const Links = styled.div`
+`;

@@ -1,4 +1,9 @@
-import { Button, P, Dropdown } from './Style';
+import { 
+  P, Dropdown
+} from './Style';
+import {
+  Button,
+} from '../Navbar/Style';
 import { AiOutlineArrowDown } from 'react-icons/ai';
 import { useState, useRef, useEffect } from 'react';
 
@@ -42,11 +47,9 @@ export const NavbarDropdown = ({ text, children }) => {
   }, [isComponentVisible]);
 
   return (
-    <div style={{ marginRight: '12px' }} ref={ref}>
-      <Button onClick={() => setShowDropdown(!showDropdown)}>
-        <P>{text}<AiOutlineArrowDown /></P>
-        {isComponentVisible && showDropdown && (renderDropdown())}
-      </Button>
-    </div>
+    <Button onClick={() => setShowDropdown(!showDropdown)} ref={ref} >
+      <P>{text}<AiOutlineArrowDown /></P>
+      {isComponentVisible && showDropdown && (renderDropdown())}
+    </Button>
   );
 }

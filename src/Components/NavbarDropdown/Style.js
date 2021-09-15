@@ -8,6 +8,7 @@ export const Button = styled.button`
 
 export const P = styled.p`
   margin: 0;
+  display: flex;
   font-size: 13px;
 `;
 
