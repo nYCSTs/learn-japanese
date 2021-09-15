@@ -4,11 +4,14 @@ export const Test = styled.div`
     margin: 18px auto;
     max-width: 730px;
     padding: 26px;
+    background-color:rgba(255, 255, 255, 0.5);
+    border: 1px solid black;
+    border-radius: 18px;
 
     @media(max-width: 750px) {
         width: 90%;
         min-width: auto;
-        background-color: transparent;
+        
     }
 `;
 
@@ -16,13 +19,10 @@ export const Question = styled.p`
     text-align: center;
     font-size: 32px;
     padding: 12px;
-    background-color: white;
-    border-radius: 24px;
-    border: 1px solid black;
 `;
 
 export const Button = styled.button`
-    background-color: #4CAF50;
+    background-color: #1A1C20;
     border: none;
     color: white;
     padding: 9px 18px;
@@ -32,6 +32,7 @@ export const Button = styled.button`
     font-size: 16px;
     border-radius: 16px;
     margin-top: 12px;
+    cursor: pointer;
 `;
 
 export const Cards = styled.div`
@@ -50,7 +51,7 @@ export const Cards = styled.div`
 export const Card = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #04AA6D;
+    background-color: rgba(0,0,0,0.3);
     padding: 12px 6px;
     height: 320px;
     overflow: auto;
@@ -63,6 +64,10 @@ export const Card = styled.div`
 
     &::-webkit-scrollbar {
         display: none;
+    }
+
+    &:hover {
+      background-color: rgba(0,0,0,0.5);
     }
 
     @media(max-width: 750px) {
